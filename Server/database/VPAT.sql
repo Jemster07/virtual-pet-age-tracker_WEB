@@ -2,16 +2,16 @@ USE master
 GO
 
 --drop database if it exists
-IF DB_ID('final_capstone') IS NOT NULL
+IF DB_ID('vpat') IS NOT NULL
 BEGIN
-	ALTER DATABASE final_capstone SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-	DROP DATABASE final_capstone;
+	ALTER DATABASE vpat SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+	DROP DATABASE vpat;
 END
 
-CREATE DATABASE final_capstone
+CREATE DATABASE vpat
 GO
 
-USE final_capstone
+USE vpat
 GO
 
 --create tables

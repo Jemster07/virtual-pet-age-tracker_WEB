@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Capstone.Models
+namespace Vpat.Models
 {
     public class User
     {

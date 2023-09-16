@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import CapstoneApp from './App.vue'
+import VpatApp from './App.vue'
 import { createStore } from './store'
 import router from './router'
 import axios from 'axios'
@@ -24,7 +24,7 @@ if (currentToken) {
 // Create the Vuex store passing in the stored credentials
 const store = createStore(currentToken, currentUser);
 
-const app = createApp(CapstoneApp);
+const app = createApp(VpatApp);
 app.use(store);
 app.use(router);
 app.mount('#app');

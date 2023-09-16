@@ -1,4 +1,4 @@
-﻿namespace Capstone.Security
+﻿namespace Vpat.Security
 {
     public interface ITokenGenerator
     {

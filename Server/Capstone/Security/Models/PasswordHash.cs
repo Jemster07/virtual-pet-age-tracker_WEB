@@ -1,4 +1,4 @@
-﻿namespace Capstone.Security.Models
+﻿namespace Vpat.Security.Models
 {
     /// <summary>
     /// Represents a hashed password.

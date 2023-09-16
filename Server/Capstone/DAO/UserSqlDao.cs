@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
-using Capstone.Models;
-using Capstone.Security;
-using Capstone.Security.Models;
+using Vpat.Models;
+using Vpat.Security;
+using Vpat.Security.Models;
 
-namespace Capstone.DAO
+namespace Vpat.DAO
 {
     public class UserSqlDao : IUserDao
     {

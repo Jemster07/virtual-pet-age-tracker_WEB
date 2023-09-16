@@ -1,6 +1,6 @@
-﻿using Capstone.Models;
+﻿using Vpat.Models;
 
-namespace Capstone.DAO
+namespace Vpat.DAO
 {
     public interface IUserDao
     {

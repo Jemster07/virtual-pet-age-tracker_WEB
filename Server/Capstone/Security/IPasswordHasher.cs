@@ -1,6 +1,6 @@
-﻿using Capstone.Security.Models;
+﻿using Vpat.Security.Models;
 
-namespace Capstone.Security
+namespace Vpat.Security
 {
     /// <summary>
     /// Represents a password hasher.

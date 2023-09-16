@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Capstone.DAO;
-using Capstone.Models;
-using Capstone.Security;
+using Vpat.DAO;
+using Vpat.Models;
+using Vpat.Security;
 
-namespace Capstone.Controllers
+namespace Vpat.Controllers
 {
     [Route("[controller]")]
     [ApiController]

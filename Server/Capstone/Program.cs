@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 
 
-namespace Capstone
+namespace Vpat
 {
     public class Program
     {

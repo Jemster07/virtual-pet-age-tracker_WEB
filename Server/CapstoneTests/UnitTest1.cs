@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CapstoneTests
+namespace VpatTests
 {
     [TestClass]
     public class UnitTest1

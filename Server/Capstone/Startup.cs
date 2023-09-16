@@ -7,12 +7,12 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Capstone.DAO;
-using Capstone.Security;
+using Vpat.DAO;
+using Vpat.Security;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 
-namespace Capstone
+namespace Vpat
 {
     public class Startup
     {
@@ -70,8 +70,8 @@ namespace Capstone
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = Configuration["APIVersion"],
-                    Title = "Capstone Starter API",
-                    Description = "For TE Capstone"
+                    Title = "Virtual Pet Age Tracker API",
+                    Description = "For the Virtual Pet Age Tracker App"
                 });
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
@@ -116,7 +116,7 @@ namespace Capstone
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Capstone Starter API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Virtual Pet Age Tracker API");
                 c.RoutePrefix = string.Empty;
             });
 

@@ -1,5 +1,5 @@
 {
-  "name": "final-vue-capstone-seed",
+  "name": "virtual-pet-age-tracker-vue-seed",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -24,7 +24,6 @@
     "eslint-plugin-vue": "^7.20.0",
     "vue-eslint-parser": "^9.3.0"
   },
-  "description": "This is the Vue starter project for the final capstone. This document walks you through how to set up and run the project. It also explains the project's features, such as Vue Router, Vuex, and authentication.",
   "main": ".eslintrc.js",
   "author": "",
   "license": "ISC"

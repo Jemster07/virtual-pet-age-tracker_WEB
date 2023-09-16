@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Capstone.Security
+namespace Vpat.Security
 {
     public class JwtGenerator : ITokenGenerator
     {

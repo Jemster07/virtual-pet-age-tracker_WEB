@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Capstone", "Capstone\Capstone.csproj", "{C6335DAA-53B6-47A9-9E96-29600F83FE1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vpat", "Capstone\Vpat.csproj", "{C6335DAA-53B6-47A9-9E96-29600F83FE1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapstoneTests", "CapstoneTests\CapstoneTests.csproj", "{3322142C-2CEA-4D8C-B68D-562A7172EFC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VpatTests", "CapstoneTests\VpatTests.csproj", "{3322142C-2CEA-4D8C-B68D-562A7172EFC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

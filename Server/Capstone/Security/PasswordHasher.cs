@@ -1,8 +1,8 @@
-﻿using Capstone.Security.Models;
+﻿using Vpat.Security.Models;
 using System;
 using System.Security.Cryptography;
 
-namespace Capstone.Security
+namespace Vpat.Security
 {
     /// <summary>
     /// The hash provider provides functionality to hash a plain text password and validate

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace virtual_pet_age_tracker.Classes
+namespace Vpat.Models
 {
     public class Pet
     {

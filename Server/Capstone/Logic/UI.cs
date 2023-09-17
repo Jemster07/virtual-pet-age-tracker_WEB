@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace virtual_pet_age_tracker.Classes
+namespace Vpat.Logic
 {
     public class UI
     {

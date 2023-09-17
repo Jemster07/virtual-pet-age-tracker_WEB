@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Vpat.DAO;
+using Vpat.Models;
 
-namespace virtual_pet_age_tracker.Classes
+namespace Vpat.Logic
 {
     public class InventoryHandler
     {

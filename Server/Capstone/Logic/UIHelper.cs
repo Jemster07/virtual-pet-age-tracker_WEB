@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Vpat.Models;
 
 namespace Vpat.Logic
 {
@@ -216,7 +213,7 @@ namespace Vpat.Logic
             Console.WriteLine("Pet successfully added!");
             Console.WriteLine();
             Console.WriteLine($"Name: {newPet.Name}");
-            Console.WriteLine($"Pet Type: {newPet.PetType}");
+            Console.WriteLine($"Pet Type: {newPet.Type}");
             Console.WriteLine($"Birthday: {newPet.Birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"))}");
         }
 

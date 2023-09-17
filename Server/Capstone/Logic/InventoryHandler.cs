@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.IO;
 using Vpat.DAO;
 using Vpat.Models;
-
 namespace Vpat.Logic
 {
     public class InventoryHandler
@@ -118,7 +114,7 @@ namespace Vpat.Logic
 
                         Console.WriteLine();
                         Console.WriteLine($"Name: {item.Value.Name}");
-                        Console.WriteLine($"Pet Type: {item.Value.PetType}");
+                        Console.WriteLine($"Pet Type: {item.Value.Type}");
                         Console.WriteLine($"Birthday: {item.Value.Birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"))}");
                         Console.WriteLine($"Age: {estimatedAge}");
                     }
@@ -126,7 +122,7 @@ namespace Vpat.Logic
                     {
                         Console.WriteLine();
                         Console.WriteLine($"Name: {item.Value.Name}");
-                        Console.WriteLine($"Pet Type: {item.Value.PetType}");
+                        Console.WriteLine($"Pet Type: {item.Value.Type}");
                         Console.WriteLine($"Birthday: {item.Value.Birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"))}");
                         Console.WriteLine($"Age: {age.Days} day(s) old");
                     }

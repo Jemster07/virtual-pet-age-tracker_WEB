@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Vpat.Models
 {
@@ -10,7 +6,7 @@ namespace Vpat.Models
     {
         // Properties
         public string Name { get; private set; }
-        public string PetType { get; private set; }
+        public string Type { get; private set; }
         private string DateBirth { get; set; }
         private string TimeBirth { get; set; }
         public DateTime Birthday
@@ -30,10 +26,10 @@ namespace Vpat.Models
         }
 
         // Constructor
-        public Pet(string name, string petType, string dateBirth, string timeBirth)
+        public Pet(string name, string type, string dateBirth, string timeBirth)
         {
             Name = name;
-            PetType = petType;
+            Type = type;
             DateBirth = dateBirth;
             TimeBirth = timeBirth;
         }

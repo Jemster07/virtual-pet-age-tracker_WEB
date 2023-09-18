@@ -40,10 +40,10 @@ namespace Vpat.DAO
         /// </summary>
         /// <returns>Pet Object.</returns>
         /// <exception cref="Exception"></exception>
-        public Pet ReadPet(string filePath)
+        public GigaPet ReadPet(string filePath)
         {
             string name = null;
-            string petType = null;
+            string type = null;
             string dateBirth = null;
             string timeBirth = null;
 
@@ -64,7 +64,7 @@ namespace Vpat.DAO
                         }
                         else if (lineCounter == 1)
                         {
-                            petType = line;
+                            type = line;
                             lineCounter++;
                         }
                         else if (lineCounter == 2)
@@ -79,7 +79,7 @@ namespace Vpat.DAO
                         }
                     }
 
-                    Pet pet = new Pet(name, petType, dateBirth, timeBirth);
+                    GigaPet pet = new GigaPet(name, type, dateBirth, timeBirth);
 
                     return pet;
                 }
@@ -96,7 +96,7 @@ namespace Vpat.DAO
         /// <param name="pet"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void WritePet(Pet pet)
+        public void WritePet(GigaPet pet)
         {
             string filePath = $"{directoryPath}{pet.Name}.txt";
 
@@ -125,7 +125,7 @@ namespace Vpat.DAO
         /// <param name="pet"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void DeletePet(Pet pet)
+        public void DeletePet(GigaPet pet)
         {
             string filePath = $"{directoryPath}{pet.Name}.txt";
 

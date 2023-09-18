@@ -120,7 +120,7 @@ namespace Vpat.Logic
                             break;
                         }
 
-                        string petType = userInput;
+                        string type = userInput;
 
                         UIhelper.PetBirthdayToday();
                         userInput = Console.ReadLine();
@@ -167,7 +167,7 @@ namespace Vpat.Logic
                             dateBirth = currentDate.ToString();
                             timeBirth = currentTime.ToString();
 
-                            Pet newPet = new Pet(name, petType, dateBirth, timeBirth);
+                            GigaPet newPet = new GigaPet(name, type, dateBirth, timeBirth);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);
@@ -238,7 +238,7 @@ namespace Vpat.Logic
 
                             timeBirth = userInput;
 
-                            Pet newPet = new Pet(name, petType, dateBirth, timeBirth);
+                            GigaPet newPet = new GigaPet(name, type, dateBirth, timeBirth);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);

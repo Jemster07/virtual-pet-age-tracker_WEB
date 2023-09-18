@@ -9,14 +9,14 @@ namespace Vpat.Logic
     public class InventoryHandler
     {
         FileIO fileIO = new FileIO();
-        Dictionary<string, Pet> currentPets = new Dictionary<string, Pet>();
+        Dictionary<string, GigaPet> currentPets = new Dictionary<string, GigaPet>();
 
         /// <summary>
         /// Generates a Dictionary containing Pet Objects, using the lowercase Name property as the Key.
         /// </summary>
         /// <returns>Dictionary containing Pet Objects.</returns>
         /// <exception cref="Exception"></exception>
-        public Dictionary<string, Pet> GeneratePetDictionary()
+        public Dictionary<string, GigaPet> GeneratePetDictionary()
         {
             string[] pathArray = fileIO.ReadDirectory();
 
@@ -28,7 +28,7 @@ namespace Vpat.Logic
             {
                 foreach (string filePath in pathArray)
                 {
-                    Pet pet = fileIO.ReadPet(filePath);
+                    GigaPet pet = fileIO.ReadPet(filePath);
 
                     string petNameLower = pet.Name.ToLower();
 
@@ -45,7 +45,7 @@ namespace Vpat.Logic
         /// <param name="pet"></param>
         /// <returns>Bool indicating if the Dictionary contains the newly created Pet Object.</returns>
         /// <exception cref="Exception"></exception>
-        public bool AddToDictionary(Pet pet)
+        public bool AddToDictionary(GigaPet pet)
         {
             string petNameLower = pet.Name.ToLower();
 
@@ -75,7 +75,7 @@ namespace Vpat.Logic
 
             if (currentPets.ContainsKey(petNameLower))
             {
-                Pet pet = currentPets[petNameLower];
+                GigaPet pet = currentPets[petNameLower];
                 
                 fileIO.DeletePet(pet);               
                 currentPets.Remove(petNameLower);
@@ -95,7 +95,7 @@ namespace Vpat.Logic
         {
             if (currentPets.Count > 0)
             {
-                foreach (KeyValuePair<string, Pet> item in currentPets)
+                foreach (KeyValuePair<string, GigaPet> item in currentPets)
                 {
                     TimeSpan age = item.Value.CalculateAge(item.Value.Birthday);
 

@@ -2,7 +2,7 @@
 
 namespace Vpat.Models
 {
-    public class Pet
+    public abstract class Pet
     {
         // Properties
         public string Name { get; private set; }
@@ -39,7 +39,7 @@ namespace Vpat.Models
         {
             DateTime currentDate = DateTime.Now;
             TimeSpan age = currentDate.Subtract(birthday);
-            
+
             return age;
         }
     }

@@ -30,13 +30,9 @@ namespace Vpat.Models
             DateBirth = dateBirth;
             AgeChime = ageChime;
 
-            if (!AgeChime)
+            if (timeBirth == null)
             {
-                TimeBirth = "12:00:00 AM";
-            }
-            else
-            {
-                TimeBirth = timeBirth;
+
             }
         }
     }

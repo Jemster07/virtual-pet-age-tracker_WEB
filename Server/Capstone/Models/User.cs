@@ -6,6 +6,7 @@ namespace Vpat.Models
     {
         public int UserId { get; set; }
         public string Username { get; set; }
+        public string Email { get; set; }
         [JsonIgnore]
         public string PasswordHash { get; set; }
         [JsonIgnore]
@@ -49,6 +50,7 @@ namespace Vpat.Models
     public class RegisterUser
     {
         public string Username { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
         // a little data validation
         [Compare("Password")]

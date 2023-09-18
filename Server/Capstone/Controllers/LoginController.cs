@@ -28,8 +28,13 @@ namespace Vpat.Controllers
             // Get the user by username
             User user = userDao.GetUser(userParam.Username);
 
+            if (user != null && user.IsHidden)
+            {
+                result = Unauthorized(new { message = "User account has been deactivated. Please contact support for assistance." });
+            }
+
             // If we found a user and the password hash matches
-            if (user != null && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
+            if (user != null && !user.IsHidden && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
             {
                 // Create an authentication token
                 string token = tokenGenerator.GenerateToken(user.UserId, user.Username, user.Role);
@@ -53,10 +58,18 @@ namespace Vpat.Controllers
             User existingUser = userDao.GetUser(userParam.Username);
             if (existingUser != null)
             {
-                return Conflict(new { message = "Username already taken. Please choose a different username." });
+                if (existingUser.Email == userParam.Email)
+                {
+                    return Conflict(new { message = "Email address already associated with an account." });
+                }
+
+                if (existingUser.Username == userParam.Username)
+                {
+                    return Conflict(new { message = "Username already taken. Please choose a different username." });
+                }
             }
 
-            User user = userDao.AddUser(userParam.Username, userParam.Password, userParam.Role);
+            User user = userDao.AddUser(userParam.Username, userParam.Email, userParam.Password, userParam.Role);
             if (user != null)
             {
                 result = Created(user.Username, null); //values aren't read on client

@@ -3,7 +3,6 @@ using System.Data.SqlClient;
 using Vpat.Models;
 using Vpat.Security;
 using Vpat.Security.Models;
-
 namespace Vpat.DAO
 {
     public class UserSqlDao : IUserDao

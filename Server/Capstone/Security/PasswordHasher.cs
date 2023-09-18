@@ -1,7 +1,6 @@
 ﻿using Vpat.Security.Models;
 using System;
 using System.Security.Cryptography;
-
 namespace Vpat.Security
 {
     /// <summary>

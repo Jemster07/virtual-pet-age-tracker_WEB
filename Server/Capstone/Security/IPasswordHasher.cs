@@ -1,5 +1,4 @@
 ﻿using Vpat.Security.Models;
-
 namespace Vpat.Security
 {
     /// <summary>

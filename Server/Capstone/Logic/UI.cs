@@ -1,6 +1,5 @@
 ﻿using System;
 using Vpat.Models;
-
 namespace Vpat.Logic
 {
     public class UI
@@ -167,7 +166,7 @@ namespace Vpat.Logic
                             dateBirth = currentDate.ToString();
                             timeBirth = currentTime.ToString();
 
-                            GigaPet newPet = new GigaPet(name, type, dateBirth, timeBirth);
+                            Tamagotchi newPet = new Tamagotchi(name, type, dateBirth, timeBirth);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);
@@ -238,7 +237,7 @@ namespace Vpat.Logic
 
                             timeBirth = userInput;
 
-                            GigaPet newPet = new GigaPet(name, type, dateBirth, timeBirth);
+                            Tamagotchi newPet = new Tamagotchi(name, type, dateBirth, timeBirth);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);

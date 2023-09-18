@@ -1,17 +1,20 @@
 ﻿using System;
 namespace Vpat.Models
 {
-    public class GigaPet : Pet
-    {
+	public class NanoPet : Pet
+	{
         // Properties
         private string DateBirth { get; set; }
+        private string TimeBirth { get; set; }
         public DateTime Birthday
         {
             get
             {
                 DateOnly date = DateOnly.Parse(DateBirth);
 
-                string combinedDateTime = $"{date} 12:00:00 AM";
+                TimeOnly time = TimeOnly.Parse(TimeBirth);
+
+                string combinedDateTime = $"{date} {time}";
 
                 DateTime birthday = DateTime.Parse(combinedDateTime);
 
@@ -20,10 +23,11 @@ namespace Vpat.Models
         }
 
         // Constructor
-        public GigaPet(string name, string type, string dateBirth)
+        public NanoPet(string name, string type, string dateBirth, string timeBirth)
             : base(name, type)
         {
             DateBirth = dateBirth;
+            TimeBirth = timeBirth;
         }
     }
 }

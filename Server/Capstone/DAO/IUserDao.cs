@@ -1,5 +1,4 @@
 ﻿using Vpat.Models;
-
 namespace Vpat.DAO
 {
     public interface IUserDao

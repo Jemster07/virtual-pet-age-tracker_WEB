@@ -9,14 +9,14 @@ namespace Vpat.Logic
     public class InventoryHandler
     {
         FileIO fileIO = new FileIO();
-        Dictionary<string, GigaPet> currentPets = new Dictionary<string, GigaPet>();
+        Dictionary<string, Tamagotchi> currentPets = new Dictionary<string, Tamagotchi>();
 
         /// <summary>
         /// Generates a Dictionary containing Pet Objects, using the lowercase Name property as the Key.
         /// </summary>
         /// <returns>Dictionary containing Pet Objects.</returns>
         /// <exception cref="Exception"></exception>
-        public Dictionary<string, GigaPet> GeneratePetDictionary()
+        public Dictionary<string, Tamagotchi> GeneratePetDictionary()
         {
             string[] pathArray = fileIO.ReadDirectory();
 
@@ -28,7 +28,7 @@ namespace Vpat.Logic
             {
                 foreach (string filePath in pathArray)
                 {
-                    GigaPet pet = fileIO.ReadPet(filePath);
+                    Tamagotchi pet = fileIO.ReadPet(filePath);
 
                     string petNameLower = pet.Name.ToLower();
 
@@ -45,7 +45,7 @@ namespace Vpat.Logic
         /// <param name="pet"></param>
         /// <returns>Bool indicating if the Dictionary contains the newly created Pet Object.</returns>
         /// <exception cref="Exception"></exception>
-        public bool AddToDictionary(GigaPet pet)
+        public bool AddToDictionary(Tamagotchi pet)
         {
             string petNameLower = pet.Name.ToLower();
 
@@ -75,7 +75,7 @@ namespace Vpat.Logic
 
             if (currentPets.ContainsKey(petNameLower))
             {
-                GigaPet pet = currentPets[petNameLower];
+                Tamagotchi pet = currentPets[petNameLower];
                 
                 fileIO.DeletePet(pet);               
                 currentPets.Remove(petNameLower);
@@ -95,7 +95,7 @@ namespace Vpat.Logic
         {
             if (currentPets.Count > 0)
             {
-                foreach (KeyValuePair<string, GigaPet> item in currentPets)
+                foreach (KeyValuePair<string, Tamagotchi> item in currentPets)
                 {
                     TimeSpan age = item.Value.CalculateAge(item.Value.Birthday);
 

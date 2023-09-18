@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Vpat.Models
 {
     public abstract class Pet
@@ -7,31 +6,12 @@ namespace Vpat.Models
         // Properties
         public string Name { get; private set; }
         public string Type { get; private set; }
-        private string DateBirth { get; set; }
-        private string TimeBirth { get; set; }
-        public DateTime Birthday
-        {
-            get
-            {
-                DateOnly date = DateOnly.Parse(DateBirth);
-
-                TimeOnly time = TimeOnly.Parse(TimeBirth);
-
-                string combinedDateTime = $"{date} {time}";
-
-                DateTime birthday = DateTime.Parse(combinedDateTime);
-
-                return birthday;
-            }
-        }
 
         // Constructor
-        public Pet(string name, string type, string dateBirth, string timeBirth)
+        public Pet(string name, string type)
         {
             Name = name;
             Type = type;
-            DateBirth = dateBirth;
-            TimeBirth = timeBirth;
         }
 
         // Method

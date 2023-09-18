@@ -2,7 +2,6 @@
 using Vpat.DAO;
 using Vpat.Models;
 using Vpat.Security;
-
 namespace Vpat.Controllers
 {
     [Route("[controller]")]

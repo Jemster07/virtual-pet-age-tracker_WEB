@@ -1,11 +1,12 @@
 ﻿using System;
 namespace Vpat.Models
 {
-	public class Tamagotchi : Pet
+	public class OtherPet : Pet
 	{
         // Properties
         private string DateBirth { get; set; }
         private string TimeBirth { get; set; }
+        public bool AgeChime { get; set; }
         public DateTime Birthday
         {
             get
@@ -23,11 +24,20 @@ namespace Vpat.Models
         }
 
         // Constructor
-        public Tamagotchi(string name, string type, string dateBirth, string timeBirth)
+        public OtherPet(string name, string type, string dateBirth, string timeBirth, bool ageChime)
             : base(name, type)
         {
             DateBirth = dateBirth;
-            TimeBirth = timeBirth;
+            AgeChime = ageChime;
+
+            if (!AgeChime)
+            {
+                TimeBirth = "12:00:00 AM";
+            }
+            else
+            {
+                TimeBirth = timeBirth;
+            }
         }
     }
 }

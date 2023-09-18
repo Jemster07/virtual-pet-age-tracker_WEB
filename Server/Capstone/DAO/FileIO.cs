@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Vpat.Models;
-
 namespace Vpat.DAO
 {
     public class FileIO
@@ -40,7 +39,7 @@ namespace Vpat.DAO
         /// </summary>
         /// <returns>Pet Object.</returns>
         /// <exception cref="Exception"></exception>
-        public GigaPet ReadPet(string filePath)
+        public Tamagotchi ReadPet(string filePath)
         {
             string name = null;
             string type = null;
@@ -79,7 +78,7 @@ namespace Vpat.DAO
                         }
                     }
 
-                    GigaPet pet = new GigaPet(name, type, dateBirth, timeBirth);
+                    Tamagotchi pet = new Tamagotchi(name, type, dateBirth, timeBirth);
 
                     return pet;
                 }
@@ -96,7 +95,7 @@ namespace Vpat.DAO
         /// <param name="pet"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void WritePet(GigaPet pet)
+        public void WritePet(Tamagotchi pet)
         {
             string filePath = $"{directoryPath}{pet.Name}.txt";
 
@@ -125,7 +124,7 @@ namespace Vpat.DAO
         /// <param name="pet"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void DeletePet(GigaPet pet)
+        public void DeletePet(Tamagotchi pet)
         {
             string filePath = $"{directoryPath}{pet.Name}.txt";
 

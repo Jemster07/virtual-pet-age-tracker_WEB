@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-
-
 namespace Vpat
 {
     public class Program

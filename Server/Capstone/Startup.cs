@@ -11,7 +11,6 @@ using Vpat.DAO;
 using Vpat.Security;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
-
 namespace Vpat
 {
     public class Startup

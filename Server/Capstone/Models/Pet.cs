@@ -1,17 +1,52 @@
 ﻿using System;
 namespace Vpat.Models
 {
-    public abstract class Pet
+    public class Pet
     {
         // Properties
-        public string Name { get; private set; }
-        public string Type { get; private set; }
+        public string PetName { get; set; }
+        public string PetType { get; set; }
+        public string Brand { get; set; }
+        public string DateBirth { get; set; }
+        public string TimeBirth { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsHidden { get; set; }
+        public DateTime Birthday
+        {
+            get
+            {
+                DateOnly date = DateOnly.Parse(DateBirth);
+
+                TimeOnly time = TimeOnly.Parse(TimeBirth);
+
+                string combinedDateTime = $"{date} {time}";
+
+                DateTime birthday = DateTime.Parse(combinedDateTime);
+
+                return birthday;
+            }
+        }
 
         // Constructor
-        public Pet(string name, string type)
+        public Pet(string petName, string petType, string brand, string dateBirth,
+            string timeBirth, bool isActive, bool isHidden)
         {
-            Name = name;
-            Type = type;
+            PetName = petName;
+            PetType = petType;
+            Brand = brand;
+            DateBirth = dateBirth;
+
+            if (timeBirth == null)
+            {
+                TimeBirth = "12:00:00 AM";
+            }
+            else
+            {
+                TimeBirth = timeBirth;
+            }
+
+            IsActive = isActive;
+            IsHidden = isHidden;
         }
 
         // Method

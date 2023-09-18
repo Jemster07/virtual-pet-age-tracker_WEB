@@ -211,8 +211,8 @@ namespace Vpat.Logic
             Console.WriteLine();
             Console.WriteLine("Pet successfully added!");
             Console.WriteLine();
-            Console.WriteLine($"Name: {newPet.Name}");
-            Console.WriteLine($"Pet Type: {newPet.Type}");
+            Console.WriteLine($"Name: {newPet.PetName}");
+            Console.WriteLine($"Pet Type: {newPet.PetType}");
             Console.WriteLine($"Birthday: {newPet.Birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"))}");
         }
 

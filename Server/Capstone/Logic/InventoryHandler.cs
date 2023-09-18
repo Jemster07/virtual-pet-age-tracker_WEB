@@ -30,7 +30,7 @@ namespace Vpat.Logic
                 {
                     Pet pet = fileIO.ReadPet(filePath);
 
-                    string petNameLower = pet.Name.ToLower();
+                    string petNameLower = pet.PetName.ToLower();
 
                     currentPets.Add(petNameLower, pet);
                 }
@@ -47,7 +47,7 @@ namespace Vpat.Logic
         /// <exception cref="Exception"></exception>
         public bool AddToDictionary(Pet pet)
         {
-            string petNameLower = pet.Name.ToLower();
+            string petNameLower = pet.PetName.ToLower();
 
             if (!currentPets.ContainsKey(petNameLower))
             {
@@ -113,16 +113,16 @@ namespace Vpat.Logic
                         string estimatedAge = $"{yearCounter} year(s) and {ageDays} day(s) old";
 
                         Console.WriteLine();
-                        Console.WriteLine($"Name: {item.Value.Name}");
-                        Console.WriteLine($"Pet Type: {item.Value.Type}");
+                        Console.WriteLine($"Name: {item.Value.PetName}");
+                        Console.WriteLine($"Pet Type: {item.Value.PetType}");
                         Console.WriteLine($"Birthday: {item.Value.Birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"))}");
                         Console.WriteLine($"Age: {estimatedAge}");
                     }
                     else
                     {
                         Console.WriteLine();
-                        Console.WriteLine($"Name: {item.Value.Name}");
-                        Console.WriteLine($"Pet Type: {item.Value.Type}");
+                        Console.WriteLine($"Name: {item.Value.PetName}");
+                        Console.WriteLine($"Pet Type: {item.Value.PetType}");
                         Console.WriteLine($"Birthday: {item.Value.Birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"))}");
                         Console.WriteLine($"Age: {age.Days} day(s) old");
                     }

@@ -97,7 +97,7 @@ namespace Vpat.DAO
         /// <exception cref="Exception"></exception>
         public void WritePet(Pet pet)
         {
-            string filePath = $"{directoryPath}{pet.Name}.txt";
+            string filePath = $"{directoryPath}{pet.PetName}.txt";
 
             DateOnly dateBirth = DateOnly.FromDateTime(pet.Birthday);
             TimeOnly timeBirth = TimeOnly.FromDateTime(pet.Birthday);
@@ -106,8 +106,8 @@ namespace Vpat.DAO
             {
                 using (StreamWriter sw = new StreamWriter(filePath))
                 {
-                    sw.WriteLine(pet.Name);
-                    sw.WriteLine(pet.Type);
+                    sw.WriteLine(pet.PetName);
+                    sw.WriteLine(pet.PetType);
                     sw.WriteLine(dateBirth);
                     sw.WriteLine(timeBirth);
                 }
@@ -126,7 +126,7 @@ namespace Vpat.DAO
         /// <exception cref="Exception"></exception>
         public void DeletePet(Pet pet)
         {
-            string filePath = $"{directoryPath}{pet.Name}.txt";
+            string filePath = $"{directoryPath}{pet.PetName}.txt";
 
             try
             {

@@ -204,7 +204,7 @@ namespace Vpat.Logic
             Console.Write("Enter the pet's time of birth using AM/PM or 24-hour format: ");
         }
 
-        public void PetAddSuccess(Tamagotchi newPet)
+        public void PetAddSuccess(Pet newPet)
         {
             Console.Clear();
             Console.WriteLine($"---{{ Pet Age Tracker {versionNum} }}---");

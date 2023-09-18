@@ -166,7 +166,7 @@ namespace Vpat.Logic
                             dateBirth = currentDate.ToString();
                             timeBirth = currentTime.ToString();
 
-                            Tamagotchi newPet = new Tamagotchi(name, type, dateBirth, timeBirth);
+                            Pet newPet = new Pet(name, type, dateBirth, timeBirth);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);
@@ -237,7 +237,7 @@ namespace Vpat.Logic
 
                             timeBirth = userInput;
 
-                            Tamagotchi newPet = new Tamagotchi(name, type, dateBirth, timeBirth);
+                            Pet newPet = new Pet(name, type, dateBirth, timeBirth);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);

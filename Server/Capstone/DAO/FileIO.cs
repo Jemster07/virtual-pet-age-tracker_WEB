@@ -39,7 +39,7 @@ namespace Vpat.DAO
         /// </summary>
         /// <returns>Pet Object.</returns>
         /// <exception cref="Exception"></exception>
-        public Tamagotchi ReadPet(string filePath)
+        public Pet ReadPet(string filePath)
         {
             string name = null;
             string type = null;
@@ -78,7 +78,7 @@ namespace Vpat.DAO
                         }
                     }
 
-                    Tamagotchi pet = new Tamagotchi(name, type, dateBirth, timeBirth);
+                    Pet pet = new Pet(name, type, dateBirth, timeBirth);
 
                     return pet;
                 }
@@ -95,7 +95,7 @@ namespace Vpat.DAO
         /// <param name="pet"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void WritePet(Tamagotchi pet)
+        public void WritePet(Pet pet)
         {
             string filePath = $"{directoryPath}{pet.Name}.txt";
 
@@ -124,7 +124,7 @@ namespace Vpat.DAO
         /// <param name="pet"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public void DeletePet(Tamagotchi pet)
+        public void DeletePet(Pet pet)
         {
             string filePath = $"{directoryPath}{pet.Name}.txt";
 

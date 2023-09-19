@@ -48,6 +48,7 @@ namespace Vpat.DAO
             string timeBirth = null;
             bool isActive = true;
             bool isHidden = false;
+            int userId = 0;
 
             int lineCounter = 0;
 
@@ -81,7 +82,7 @@ namespace Vpat.DAO
                         }
                     }
 
-                    Pet pet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden);
+                    Pet pet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden, userId);
 
                     return pet;
                 }

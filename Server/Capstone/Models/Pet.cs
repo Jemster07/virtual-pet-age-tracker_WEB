@@ -26,10 +26,11 @@ namespace Vpat.Models
                 return birthday;
             }
         }
+        public int UserId { get; set; }
 
         // Constructor
         public Pet(string petName, string petType, string brand, string dateBirth,
-            string timeBirth, bool isActive, bool isHidden)
+            string timeBirth, bool isActive, bool isHidden, int userId)
         {
             PetName = petName;
             PetType = petType;
@@ -47,6 +48,7 @@ namespace Vpat.Models
 
             IsActive = isActive;
             IsHidden = isHidden;
+            UserId = userId;
         }
 
         // Method

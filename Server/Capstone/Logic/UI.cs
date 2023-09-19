@@ -160,6 +160,7 @@ namespace Vpat.Logic
                         string timeBirth = null;
                         bool isActive = true;
                         bool isHidden = false;
+                        int userId = 0;
 
                         if (userInputLower.StartsWith("y"))
                         {
@@ -169,7 +170,7 @@ namespace Vpat.Logic
                             dateBirth = currentDate.ToString();
                             timeBirth = currentTime.ToString();
 
-                            Pet newPet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden);
+                            Pet newPet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden, userId);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);
@@ -240,7 +241,7 @@ namespace Vpat.Logic
 
                             timeBirth = userInput;
 
-                            Pet newPet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden);
+                            Pet newPet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden, userId);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);

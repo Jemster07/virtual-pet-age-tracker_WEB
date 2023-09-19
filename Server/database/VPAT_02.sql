@@ -52,5 +52,6 @@ ALTER TABLE users ADD CONSTRAINT UQ_Email UNIQUE(email);
 --populate default data
 INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) VALUES ('jemster','emelie.kerek@gmail.com','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','admin',0);
 INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) VALUES ('user','test.user@email.com','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','user',0);
+INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) VALUES ('tester','big.fan@email.com','OXKMP3D9m6KRboiHQPTuI3HFCGU=', 'N2w2Mti3pYM=','user',1);
 
 GO

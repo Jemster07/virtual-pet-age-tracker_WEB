@@ -14,7 +14,7 @@ namespace Vpat.DAO
             connectionString = dbConnectionString;
         }
 
-        public User GetUser(string username)
+        public User GetUserByUsername(string username)
         {
             User returnUser = null;
 
@@ -26,6 +26,34 @@ namespace Vpat.DAO
 
                     SqlCommand cmd = new SqlCommand("SELECT user_id, username, email, password_hash, salt, user_role, is_hidden FROM users WHERE username = @username", conn);
                     cmd.Parameters.AddWithValue("@username", username);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnUser = GetUserFromReader(reader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return returnUser;
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            User returnUser = null;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, email, password_hash, salt, user_role, is_hidden FROM users WHERE email = @email", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -68,7 +96,7 @@ namespace Vpat.DAO
                 throw;
             }
 
-            return GetUser(username);
+            return GetUserByUsername(username);
         }
 
         private User GetUserFromReader(SqlDataReader reader)

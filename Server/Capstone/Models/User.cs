@@ -16,17 +16,6 @@ namespace Vpat.Models
     }
 
     /// <summary>
-    /// Model of user data to return upon successful login
-    /// Tom took this out in preference for the JsonIgnore
-    /// </summary>
-    //public class ReturnUser
-    //{
-    //    public int UserId { get; set; }
-    //    public string Username { get; set; }
-    //    public string Role { get; set; }
-    //}
-
-    /// <summary>
     /// Model to return upon successful login (user data + token)
     /// </summary>
     public class LoginResponse

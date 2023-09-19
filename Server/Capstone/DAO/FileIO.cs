@@ -41,10 +41,13 @@ namespace Vpat.DAO
         /// <exception cref="Exception"></exception>
         public Pet ReadPet(string filePath)
         {
-            string name = null;
-            string type = null;
+            string petName = null;
+            string petType = null;
+            string brand = null;
             string dateBirth = null;
             string timeBirth = null;
+            bool isActive = true;
+            bool isHidden = false;
 
             int lineCounter = 0;
 
@@ -58,12 +61,12 @@ namespace Vpat.DAO
 
                         if (lineCounter == 0)
                         {
-                            name = line;
+                            petName = line;
                             lineCounter++;
                         }
                         else if (lineCounter == 1)
                         {
-                            type = line;
+                            petType = line;
                             lineCounter++;
                         }
                         else if (lineCounter == 2)
@@ -78,7 +81,7 @@ namespace Vpat.DAO
                         }
                     }
 
-                    Pet pet = new Pet(name, type, dateBirth, timeBirth);
+                    Pet pet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden);
 
                     return pet;
                 }

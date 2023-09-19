@@ -3,7 +3,8 @@ namespace Vpat.DAO
 {
     public interface IUserDao
     {
-        User GetUser(string username);
+        User GetUserByUsername(string username);
+        User GetUserByEmail(string email);
         User AddUser(string username, string email, string password, string role);
     }
 }

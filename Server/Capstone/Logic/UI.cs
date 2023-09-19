@@ -103,7 +103,7 @@ namespace Vpat.Logic
                             break;
                         }
 
-                        string name = userInput;
+                        string petName = userInput;
 
                         UIhelper.EnterPetType();
                         userInput = Console.ReadLine();
@@ -119,7 +119,7 @@ namespace Vpat.Logic
                             break;
                         }
 
-                        string type = userInput;
+                        string petType = userInput;
 
                         UIhelper.PetBirthdayToday();
                         userInput = Console.ReadLine();
@@ -155,8 +155,11 @@ namespace Vpat.Logic
                             break;
                         }
 
+                        string brand = null;
                         string dateBirth = null;
                         string timeBirth = null;
+                        bool isActive = true;
+                        bool isHidden = false;
 
                         if (userInputLower.StartsWith("y"))
                         {
@@ -166,7 +169,7 @@ namespace Vpat.Logic
                             dateBirth = currentDate.ToString();
                             timeBirth = currentTime.ToString();
 
-                            Pet newPet = new Pet(name, type, dateBirth, timeBirth);
+                            Pet newPet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);
@@ -237,7 +240,7 @@ namespace Vpat.Logic
 
                             timeBirth = userInput;
 
-                            Pet newPet = new Pet(name, type, dateBirth, timeBirth);
+                            Pet newPet = new Pet(petName, petType, brand, dateBirth, timeBirth, isActive, isHidden);
                             inventoryHandler.AddToDictionary(newPet);
 
                             UIhelper.PetAddSuccess(newPet);

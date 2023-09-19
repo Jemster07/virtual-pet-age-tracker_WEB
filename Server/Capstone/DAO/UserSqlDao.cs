@@ -24,7 +24,8 @@ namespace Vpat.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, email, password_hash, salt, user_role, is_hidden FROM users WHERE username = @username", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, email, password_hash, salt, user_role, is_hidden " +
+                        "FROM users WHERE username = @username", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -52,7 +53,8 @@ namespace Vpat.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, email, password_hash, salt, user_role, is_hidden FROM users WHERE email = @email", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, email, password_hash, salt, user_role, is_hidden " +
+                        "FROM users WHERE email = @email", conn);
                     cmd.Parameters.AddWithValue("@email", email);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -81,7 +83,8 @@ namespace Vpat.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) VALUES (@username, @email, @password_hash, @salt, @user_role, @is_hidden)", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) " +
+                        "VALUES (@username, @email, @password_hash, @salt, @user_role, @is_hidden)", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password_hash", hash.Password);

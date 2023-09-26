@@ -3,7 +3,10 @@ namespace Vpat.Models
 {
     public class Pet
     {
+        //TODO: Create models for different tasks
+
         // Properties
+        public int PetId { get; set; }
         public string PetName { get; set; }
         public string PetType { get; set; }
         public string Brand { get; set; }
@@ -43,9 +46,10 @@ namespace Vpat.Models
         }
 
         // Constructor
-        public Pet(string petName, string petType, string brand, string dateBirth,
+        public Pet(int petId, string petName, string petType, string brand, string dateBirth,
             string timeBirth, string dateDeath, bool isActive, bool isHidden, int userId)
         {
+            PetId = petId;
             PetName = petName;
             PetType = petType;
             Brand = brand;

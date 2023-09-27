@@ -8,7 +8,7 @@ namespace Vpat.DAO
 		int CountPets(int userId);
 		Pet ReadPet(int petId);
 		List<Pet> ListPets(int userId); // TODO: SORT BY in query string!!
-		bool WritePet(Pet pet);
+		Pet WritePet(NewPet pet);
 		bool DeletePet(int petId);
 	}
 }

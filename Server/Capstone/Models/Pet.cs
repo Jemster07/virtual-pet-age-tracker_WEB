@@ -3,8 +3,6 @@ namespace Vpat.Models
 {
     public class Pet
     {
-        //TODO: Create models for different tasks
-
         // Properties
         public int PetId { get; set; }
         public string PetName { get; set; }
@@ -45,31 +43,6 @@ namespace Vpat.Models
             }
         }
 
-        // Constructor
-        public Pet(int petId, string petName, string petType, string brand, string dateBirth,
-            string timeBirth, string dateDeath, bool isActive, bool isHidden, int userId)
-        {
-            PetId = petId;
-            PetName = petName;
-            PetType = petType;
-            Brand = brand;
-            DateBirth = dateBirth;
-
-            if (timeBirth == null)
-            {
-                TimeBirth = "12:00:00 AM";
-            }
-            else
-            {
-                TimeBirth = timeBirth;
-            }
-
-            DateDeath = dateDeath;
-            IsActive = isActive;
-            IsHidden = isHidden;
-            UserId = userId;
-        }
-
         // Methods
         public TimeSpan CalculateAge(DateTime birthday)
         {
@@ -85,5 +58,16 @@ namespace Vpat.Models
 
             return deathAge;
         }
+    }
+
+    public class NewPet
+    {
+        // Properties
+        public string PetName { get; set; }
+        public string PetType { get; set; }
+        public string Brand { get; set; }
+        public string DateBirth { get; set; }
+        public string TimeBirth { get; set; }
+        public int UserId { get; set; }
     }
 }

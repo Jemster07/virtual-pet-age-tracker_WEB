@@ -60,9 +60,20 @@ namespace Vpat.Models
         }
     }
 
+    public class ReturnPet
+    {
+        public string PetName { get; set; }
+        public string PetType { get; set; }
+        public string Brand { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime Birthday { get; set; }
+        public DateTime DeathDay { get; set; }
+        public TimeSpan CurrentAge { get; set; }
+        public TimeSpan DeathAge { get; set; }
+    }
+
     public class NewPet
     {
-        // Properties
         public string PetName { get; set; }
         public string PetType { get; set; }
         public string Brand { get; set; }

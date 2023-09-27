@@ -75,8 +75,6 @@ namespace Vpat.DAO
             }
 
             return petList;
-
-            // TODO: If petList.Count == 0, return a warning in Controller
         }
 
         public Pet WritePet(NewPet newPet)
@@ -200,4 +198,3 @@ namespace Vpat.DAO
         }
     }
 }
-

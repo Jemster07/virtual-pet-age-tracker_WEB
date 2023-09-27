@@ -12,4 +12,3 @@ namespace Vpat.DAO
 		bool DeletePet(int petId);
 	}
 }
-

@@ -16,7 +16,7 @@ namespace Vpat.DAO
 
         public Pet ReadPet(int petId)
         {
-            Pet pet = null;
+            Pet pet = new Pet();
             string sql = "SELECT pet_id, pet_name, pet_type, brand, date_birth, time_birth, " +
                 "date_death, is_hidden, user_id FROM pets WHERE pet_id = @petId;";
 
@@ -48,7 +48,7 @@ namespace Vpat.DAO
         {
             List<Pet> petList = new List<Pet>();
             string sql = "SELECT pet_id, pet_name, pet_type, brand, date_birth, time_birth, " +
-                "date_death, is_hidden, user_id FROM pets WHERE user_id = @userId " +
+                "date_death, is_hidden, user_id FROM pets WHERE user_id = @userId AND is_hidden = 0 " +
                 "ORDER BY pet_name;";
 
             try
@@ -80,9 +80,20 @@ namespace Vpat.DAO
         public Pet WritePet(NewPet newPet)
         {
             int petId = 0;
-            string sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, time_birth, " +
+            string sql = "";
+
+            if (newPet.TimeBirth != null)
+            {
+                sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, time_birth, " +
                 "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
-                "@brand, @dateBirth, @timeBirth, @isActive, @isHidden, @userId);";
+                "@brand, @dateBirth, @timeBirth, @isHidden, @userId);";
+            }
+            else
+            {
+                sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, " +
+                "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
+                "@brand, @dateBirth, @isHidden, @userId);";
+            }
 
             try
             {
@@ -95,7 +106,12 @@ namespace Vpat.DAO
                     cmd.Parameters.AddWithValue("@petType", newPet.PetType);
                     cmd.Parameters.AddWithValue("@brand", newPet.Brand);
                     cmd.Parameters.AddWithValue("@dateBirth", newPet.DateBirth);
-                    cmd.Parameters.AddWithValue("@timeBirth", newPet.TimeBirth);
+
+                    if (newPet.TimeBirth != null)
+                    {
+                        cmd.Parameters.AddWithValue("@timeBirth", newPet.TimeBirth);
+                    }
+
                     cmd.Parameters.AddWithValue("@isHidden", false);
                     cmd.Parameters.AddWithValue("@userId", newPet.UserId);
 
@@ -110,6 +126,7 @@ namespace Vpat.DAO
             return ReadPet(petId);
         }
 
+        // TODO: Handle Nulls in time_birth, and date_death
         public Pet UpdatePet(Pet pet)
         {
             string sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +

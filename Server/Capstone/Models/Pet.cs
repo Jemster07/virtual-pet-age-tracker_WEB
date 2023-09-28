@@ -3,7 +3,6 @@ namespace Vpat.Models
 {
     public class Pet
     {
-        // Properties
         public int PetId { get; set; }
         public string PetName { get; set; }
         public string PetType { get; set; }

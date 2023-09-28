@@ -18,7 +18,7 @@ namespace Vpat.DAO
         {
             Pet pet = null;
             string sql = "SELECT pet_id, pet_name, pet_type, brand, date_birth, time_birth, " +
-                "date_death, is_active, is_hidden, user_id FROM pets WHERE pet_id = @petId;";
+                "date_death, is_hidden, user_id FROM pets WHERE pet_id = @petId;";
 
             try
             {
@@ -48,7 +48,7 @@ namespace Vpat.DAO
         {
             List<Pet> petList = new List<Pet>();
             string sql = "SELECT pet_id, pet_name, pet_type, brand, date_birth, time_birth, " +
-                "date_death, is_active, is_hidden, user_id FROM pets WHERE user_id = @userId " +
+                "date_death, is_hidden, user_id FROM pets WHERE user_id = @userId " +
                 "ORDER BY pet_name;";
 
             try
@@ -81,7 +81,7 @@ namespace Vpat.DAO
         {
             int petId = 0;
             string sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, time_birth, " +
-                "is_active, is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
+                "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
                 "@brand, @dateBirth, @timeBirth, @isActive, @isHidden, @userId);";
 
             try
@@ -96,7 +96,6 @@ namespace Vpat.DAO
                     cmd.Parameters.AddWithValue("@brand", newPet.Brand);
                     cmd.Parameters.AddWithValue("@dateBirth", newPet.DateBirth);
                     cmd.Parameters.AddWithValue("@timeBirth", newPet.TimeBirth);
-                    cmd.Parameters.AddWithValue("@isActive", true);
                     cmd.Parameters.AddWithValue("@isHidden", false);
                     cmd.Parameters.AddWithValue("@userId", newPet.UserId);
 
@@ -115,7 +114,7 @@ namespace Vpat.DAO
         {
             string sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
                 "date_birth = @dateBirth, time_birth = @timeBirth, date_death = @dateDeath, " +
-                "is_active = @isActive WHERE pet_id = @petId;";
+                "WHERE pet_id = @petId;";
 
             try
             {
@@ -130,7 +129,6 @@ namespace Vpat.DAO
                     cmd.Parameters.AddWithValue("@dateBirth", pet.DateBirth);
                     cmd.Parameters.AddWithValue("@timeBirth", pet.TimeBirth);
                     cmd.Parameters.AddWithValue("@dateDeath", pet.DateDeath);
-                    cmd.Parameters.AddWithValue("@isActive", pet.IsActive);
                     cmd.Parameters.AddWithValue("@petId", pet.PetId);
 
                     int affectedRows = cmd.ExecuteNonQuery();
@@ -189,7 +187,6 @@ namespace Vpat.DAO
                 DateBirth = Convert.ToString(reader["date_birth"]),
                 TimeBirth = reader["time_birth"].GetType() == typeof(DBNull) ? "12:00:00 AM" : Convert.ToString(reader["time_birth"]),
                 DateDeath = reader["date_death"].GetType() == typeof(DBNull) ? null : Convert.ToString(reader["date_death"]),
-                IsActive = Convert.ToBoolean(reader["is_active"]),
                 IsHidden = Convert.ToBoolean(reader["is_hidden"]),
                 UserId = Convert.ToInt32(reader["user_id"]),
             };

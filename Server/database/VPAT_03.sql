@@ -34,7 +34,6 @@ CREATE TABLE pets (
     date_birth VARCHAR(10) NOT NULL,
     time_birth VARCHAR(12) NULL,
     date_death VARCHAR(10) NULL,
-    is_active BIT NOT NULL,
     is_hidden BIT NOT NULL,
     user_id INT NOT NULL,
     CONSTRAINT PK_pet PRIMARY KEY (pet_id),

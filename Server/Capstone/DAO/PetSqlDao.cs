@@ -88,7 +88,7 @@ namespace Vpat.DAO
                 "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
                 "@brand, @dateBirth, @timeBirth, @isHidden, @userId);";
             }
-            else
+            else // newPet.TimeBirth == null
             {
                 sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, " +
                 "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
@@ -126,12 +126,37 @@ namespace Vpat.DAO
             return ReadPet(petId);
         }
 
-        // TODO: Handle Nulls in time_birth, and date_death
         public Pet UpdatePet(Pet pet)
         {
-            string sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
-                "date_birth = @dateBirth, time_birth = @timeBirth, date_death = @dateDeath, " +
-                "WHERE pet_id = @petId;";
+            string sql = "";
+
+            if (pet.TimeBirth != null)
+            {
+                if (pet.DateDeath != null)
+                {
+                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
+                    "date_birth = @dateBirth, time_birth = @timeBirth, date_death = @dateDeath " +
+                    "WHERE pet_id = @petId;";
+                }
+                else // pet.DateDeath == null
+                {
+                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
+                    "date_birth = @dateBirth, time_birth = @timeBirth WHERE pet_id = @petId;";
+                }
+            }
+            else // pet.TimeBirth == null
+            {
+                if (pet.DateDeath == null)
+                {
+                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
+                    "date_birth = @dateBirth WHERE pet_id = @petId;";
+                }
+                else //pet.DateDeath != null
+                {
+                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
+                    "date_birth = @dateBirth, date_death = @dateDeath WHERE pet_id = @petId;";
+                }
+            }
 
             try
             {
@@ -144,15 +169,24 @@ namespace Vpat.DAO
                     cmd.Parameters.AddWithValue("@petType", pet.PetType);
                     cmd.Parameters.AddWithValue("@brand", pet.Brand);
                     cmd.Parameters.AddWithValue("@dateBirth", pet.DateBirth);
-                    cmd.Parameters.AddWithValue("@timeBirth", pet.TimeBirth);
-                    cmd.Parameters.AddWithValue("@dateDeath", pet.DateDeath);
+
+                    if (pet.TimeBirth != null)
+                    {
+                        cmd.Parameters.AddWithValue("@timeBirth", pet.TimeBirth);
+                    }
+
+                    if (pet.DateDeath != null)
+                    {
+                        cmd.Parameters.AddWithValue("@dateDeath", pet.DateDeath);
+                    }
+
                     cmd.Parameters.AddWithValue("@petId", pet.PetId);
 
                     int affectedRows = cmd.ExecuteNonQuery();
 
                     if (affectedRows != 1)
                     {
-                        throw new Exception("Error updating pet information");
+                        throw new Exception("Error updating pet information.");
                     }
                 }
             }
@@ -199,7 +233,7 @@ namespace Vpat.DAO
             {
                 PetId = Convert.ToInt32(reader["pet_id"]),
                 PetName = Convert.ToString(reader["pet_name"]),
-                PetType = reader["pet_type"].GetType() == typeof(DBNull) ? null : Convert.ToString(reader["pet_type"]),
+                PetType = Convert.ToString(reader["pet_type"]),
                 Brand = Convert.ToString(reader["brand"]),
                 DateBirth = Convert.ToString(reader["date_birth"]),
                 TimeBirth = reader["time_birth"].GetType() == typeof(DBNull) ? "12:00:00 AM" : Convert.ToString(reader["time_birth"]),

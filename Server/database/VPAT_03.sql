@@ -29,7 +29,7 @@ CREATE TABLE users (
 CREATE TABLE pets (
     pet_id INT IDENTITY(1,1) NOT NULL,
     pet_name NVARCHAR(50) NOT NULL,
-    pet_type NVARCHAR(50) NULL,
+    pet_type NVARCHAR(50) NOT NULL,
     brand NVARCHAR(50) NOT NULL,
     date_birth VARCHAR(10) NOT NULL,
     time_birth VARCHAR(12) NULL,

@@ -83,7 +83,7 @@ namespace Vpat.Controllers
 			}
 			catch (Exception)
 			{
-				return StatusCode(500);
+				return StatusCode(500, "Error updating pet information.");
 			}
 		}
 

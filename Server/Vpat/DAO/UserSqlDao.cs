@@ -102,6 +102,35 @@ namespace Vpat.DAO
             return GetUserByUsername(username);
         }
 
+        public bool DeleteUser(string username)
+        {
+            bool userDeleted = true;
+            string sql = "UPDATE users SET is_hidden = 1 WHERE username = @username;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    int affectedRows = cmd.ExecuteNonQuery();
+
+                    if (affectedRows != 1)
+                    {
+                        userDeleted = false;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return userDeleted;
+        }
+
         private User GetUserFromReader(SqlDataReader reader)
         {
             User u = new User()

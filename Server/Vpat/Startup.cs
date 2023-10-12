@@ -112,13 +112,13 @@ namespace Vpat
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Virtual Pet Age Tracker API");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseRouting();
 
             app.UseCors();
 

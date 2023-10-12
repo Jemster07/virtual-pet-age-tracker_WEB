@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Vpat.DAO;
 using Vpat.Models;
 using Vpat.Security;
@@ -82,6 +84,28 @@ namespace Vpat.Controllers
             }
 
             return result;
+        }
+
+        [HttpDelete("/delete/{username}")]
+        public ActionResult<bool> DeleteUser(string username)
+        {
+            try
+            {
+                bool userDeleted = userDao.DeleteUser(username);
+
+                if (userDeleted)
+                {
+                    return Ok(userDeleted);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status503ServiceUnavailable, "User account was not deleted!");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

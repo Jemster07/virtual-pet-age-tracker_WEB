@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vpat.DAO;
@@ -86,6 +87,7 @@ namespace Vpat.Controllers
             return result;
         }
 
+        [Authorize]
         [HttpDelete("/delete/{username}")]
         public ActionResult<bool> DeleteUser(string username)
         {

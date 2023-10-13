@@ -56,6 +56,9 @@ export default {
           }
         });
     }
+  },
+  created() {
+    this.$store.commit("DISPLAY_LOGIN_LINK", false);
   }
 };
 </script>

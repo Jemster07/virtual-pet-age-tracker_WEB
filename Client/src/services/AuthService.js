@@ -8,6 +8,10 @@ export default {
 
   register(user) {
     return axios.post('/register', user)
-  }
+  },
+
+  deleteUser(user) {
+    return axios.delete(`/delete/${user.username}`)
+  },
 
 }

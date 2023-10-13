@@ -69,6 +69,9 @@ export default {
       this.registrationErrorMsg = 'There were problems registering this user.';
     },
   },
+  created() {
+    this.$store.commit("DISPLAY_LOGIN_LINK", false);
+  }
 };
 </script>
 

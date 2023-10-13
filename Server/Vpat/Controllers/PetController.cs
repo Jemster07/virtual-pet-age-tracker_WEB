@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vpat.DAO;
@@ -8,6 +9,7 @@ namespace Vpat.Controllers
 {
 	[Route("[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PetController : ControllerBase
 	{
 		private readonly IPetDao petDao;

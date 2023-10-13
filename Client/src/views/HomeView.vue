@@ -1,14 +1,14 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
-
-    <!-- Add button to go to a help page that will have a contact form and a button to delete your account -->
-
+    <p>This is the home page.</p>
   </div>
 </template>
 
 <script>
 export default {
+  created() {
+    this.$store.commit("DISPLAY_LOGIN_LINK", true);
+  }
 };
 </script>

@@ -6,8 +6,12 @@
         {{ registrationErrorMsg }}
       </div>
       <div class="form-input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" v-model="user.email" autofocus required min="1" max="75" />
+      </div>
+      <div class="form-input-group">
         <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <input type="text" id="username" v-model="user.username" required min="1" max="50" />
       </div>
       <div class="form-input-group">
         <label for="password">Password</label>
@@ -31,6 +35,7 @@ export default {
     return {
       user: {
         username: '',
+        email: '',
         password: '',
         confirmPassword: '',
         role: 'user',

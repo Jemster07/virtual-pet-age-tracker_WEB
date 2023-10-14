@@ -9,6 +9,7 @@ namespace Vpat.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class LoginController : ControllerBase
     {
         private readonly ITokenGenerator tokenGenerator;
@@ -22,6 +23,7 @@ namespace Vpat.Controllers
             userDao = _userDao;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Authenticate(LoginUser userParam)
         {
@@ -57,6 +59,7 @@ namespace Vpat.Controllers
             return result;
         }
 
+        [AllowAnonymous]
         [HttpPost("/register")]
         public IActionResult Register(RegisterUser userParam)
         {
@@ -87,8 +90,29 @@ namespace Vpat.Controllers
             return result;
         }
 
-        [Authorize]
-        [HttpDelete("/delete/{username}")]
+        [HttpGet("/user/{username}")]
+        public ActionResult<User> GetUserByUsername(string username)
+        {
+            try
+            {
+                User user = userDao.GetUserByUsername(username);
+
+                if (user.IsHidden)
+                {
+                    return Unauthorized("User has been deactivated.");
+                }
+                else
+                {
+                    return Ok(user);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpDelete("/user/delete/{username}")]
         public ActionResult<bool> DeleteUser(string username)
         {
             try

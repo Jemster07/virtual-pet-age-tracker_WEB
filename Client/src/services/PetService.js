@@ -6,8 +6,8 @@ export default {
     return axios.get(`/pet/${pet.petId}`)
   },
 
-  listPets(pet) {
-    return axios.get(`/${pet.userId}`)
+  listPets(user) {
+    return axios.get(`/${user.userId}`)
   },
 
   addPet(newPet) {

@@ -90,29 +90,7 @@ namespace Vpat.Controllers
             return result;
         }
 
-        [HttpGet("/user/{username}")]
-        public ActionResult<User> GetUserByUsername(string username)
-        {
-            try
-            {
-                User user = userDao.GetUserByUsername(username);
-
-                if (user.IsHidden)
-                {
-                    return Unauthorized("User has been deactivated.");
-                }
-                else
-                {
-                    return Ok(user);
-                }
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
-        }
-
-        [HttpDelete("/user/delete/{username}")]
+        [HttpDelete("/delete/{username}")]
         public ActionResult<bool> DeleteUser(string username)
         {
             try

@@ -23,13 +23,11 @@
 
 <script>
 import PetService from '../services/PetService.js';
-import authService from '../services/AuthService.js';
 
 export default {
   data() {
     return {
-      currentUser: {},
-      username: this.$store.state.user.username,
+      currentUserId: this.$store.state.user.userId,
       petList: [],
       newPet: {
         petName: "",
@@ -37,29 +35,18 @@ export default {
         brand: "",
         dateBirth: "",
         timeBirth: "",
-        userId: 0,
+        userId: this.$store.state.user.userId,
       },
     }
   },
 
   async mounted() {
-    this.fetchUser();
+    this.listPets();
   },
 
   methods: {
-    async fetchUser() {
-      let response = await authService.getUserByUsername(this.username);
-
-			if (response == null) {
-				console.log("There was an error fetching the current user.");
-			} else {
-        this.currentUser = response.data;
-        this.listPets();
-			}
-    },
-
     async listPets() {
-      let response = await PetService.listPets(this.currentUser);
+      let response = await PetService.listPets(this.currentUserId);
 
 			if (response == null) {
 				console.log("There was an error loading your pet list.");

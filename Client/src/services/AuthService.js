@@ -10,12 +10,8 @@ export default {
     return axios.post('/register', user)
   },
 
-  getUserByUsername(username) {
-    return axios.get(`/user/${username}`)
-  },
-
   deleteUser(user) {
-    return axios.delete(`/user/delete/${user.username}`)
+    return axios.delete(`/delete/${user.username}`)
   },
 
 }

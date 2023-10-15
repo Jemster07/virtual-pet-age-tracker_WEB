@@ -4,15 +4,27 @@
     <table>
       <thead>
         <tr>
-          <td>
-
-          </td>
+          <th>Name</th>
+          <th>Brand</th>
+          <th>Type</th>
+          <th>Birthday</th>
+          <th>Date of Death</th>
+          <th>Age</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="pet in petList" :key="pet.petId">
+          <td>{{ pet.petName }}</td>
+          <td>{{ pet.brand }}</td>
+          <td>{{ pet.petType }}</td>
+          <td>{{ pet.birthday }}</td>
+          <td>{{ pet.dateDeath }}</td>
+          <td>{{ pet.age }}</td>
           <td>
-
+            <button>Edit</button>
+            <button>R.I.P</button>
+            <button>Delete</button>
           </td>
         </tr>
       </tbody>

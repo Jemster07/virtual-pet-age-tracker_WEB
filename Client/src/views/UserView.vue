@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     
-    <table>
+    <table v-if="petList != ''">
       <thead>
         <tr>
           <th>Name</th>

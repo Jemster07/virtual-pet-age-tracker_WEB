@@ -5,6 +5,8 @@ namespace Vpat.Models
 {
     public class Pet
     {
+        private readonly TimeSolver timeSolver = new TimeSolver();
+
         public int PetId { get; set; }
         public string PetName { get; set; }
         public string PetType { get; set; }
@@ -18,11 +20,7 @@ namespace Vpat.Models
         {
             get
             {
-                DateOnly date = DateOnly.Parse(DateBirth);
-                TimeOnly time = TimeOnly.Parse(TimeBirth);
-                string combinedDateTime = $"{date} {time}";
-                DateTime birthday = DateTime.Parse(combinedDateTime);
-
+                DateTime birthday = timeSolver.ParseDateTime(DateBirth, TimeBirth);
                 string birthdayString = birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"));
 
                 return birthdayString;
@@ -32,78 +30,26 @@ namespace Vpat.Models
         {
             get
             {
-                DateOnly date = DateOnly.Parse(DateBirth);
-                TimeOnly time = TimeOnly.Parse(TimeBirth);
-                string combinedDateTime = $"{date} {time}";
-                DateTime birthday = DateTime.Parse(combinedDateTime);
-
-                string estimatedAge = "";
+                DateTime birthday = timeSolver.ParseDateTime(DateBirth, TimeBirth);
 
                 if (DateDeath == null)
                 {
+
                     DateTime currentDate = DateTime.Now;
                     TimeSpan currentAge = currentDate.Subtract(birthday);
 
                     int ageInDays = currentAge.Days;
-
-                    if (ageInDays >= 365)
-                    {
-                        int yearCounter = 0;
-
-                        while (ageInDays >= 365)
-                        {
-                            yearCounter++;
-                            ageInDays -= 365;
-                        }
-
-                        if (ageInDays > 0)
-                        {
-                            estimatedAge = $"{yearCounter} year(s) and {ageInDays} day(s) old";
-                        }
-                        else
-                        {
-                            estimatedAge = $"{yearCounter} year(s) old";
-                        }
-                    }
-                    else
-                    {
-                        estimatedAge = $"{ageInDays} day(s) old";
-                    }
+                    string estimatedAge = timeSolver.YearCount(ageInDays);
 
                     return estimatedAge;
                 }
                 else // DateDeath != null
                 {
-                    DateOnly dateDeath = DateOnly.Parse(DateDeath);
-                    string combinedDeathDateTime = $"{dateDeath} 12:00:00 AM";
-                    DateTime deathDay = DateTime.Parse(combinedDeathDateTime);
+                    DateTime deathDay = timeSolver.ParseDateTime(DateDeath, "12:00:00 AM");
                     TimeSpan deathAge = deathDay.Subtract(birthday);
 
                     int ageInDays = deathAge.Days;
-
-                    if (ageInDays >= 365)
-                    {
-                        int yearCounter = 0;
-
-                        while (ageInDays >= 365)
-                        {
-                            yearCounter++;
-                            ageInDays -= 365;
-                        }
-
-                        if (ageInDays > 0)
-                        {
-                            estimatedAge = $"{yearCounter} year(s) and {ageInDays} day(s) old";
-                        }
-                        else
-                        {
-                            estimatedAge = $"{yearCounter} year(s) old";
-                        }
-                    }
-                    else
-                    {
-                        estimatedAge = $"{ageInDays} day(s) old";
-                    }
+                    string estimatedAge = timeSolver.YearCount(ageInDays);
 
                     return estimatedAge;
                 }

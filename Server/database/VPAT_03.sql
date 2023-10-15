@@ -48,4 +48,7 @@ INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) V
 INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) VALUES ('user','test.user@email.com','YhyGVQ+Ch69n4JMBncM4lNF/i9s=','Ar/aB2thQTI=','user',0);
 INSERT INTO users (username, email, password_hash, salt, user_role, is_hidden) VALUES ('tester','big.fan@email.com','OXKMP3D9m6KRboiHQPTuI3HFCGU=','N2w2Mti3pYM=','user',1);
 
+INSERT INTO pets (pet_name, pet_type, brand, date_birth, is_hidden, user_id) VALUES ('Carl', 'Pixel Puppy', 'Giga Pets', '04/06/2023', 0, 1);
+INSERT INTO pets (pet_name, pet_type, brand, date_birth, is_hidden, user_id) VALUES ('Miika', 'Shorthaired Tabby', 'Cat', '02/01/2015', 0, 1);
+
 GO

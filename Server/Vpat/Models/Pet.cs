@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+
 namespace Vpat.Models
 {
     public class Pet
@@ -12,7 +14,7 @@ namespace Vpat.Models
         public string DateDeath { get; set; }
         public bool IsHidden { get; set; }
         public int UserId { get; set; }
-        public DateTime Birthday
+        public string Birthday
         {
             get
             {
@@ -21,28 +23,89 @@ namespace Vpat.Models
                 string combinedDateTime = $"{date} {time}";
                 DateTime birthday = DateTime.Parse(combinedDateTime);
 
-                return birthday;
+                string birthdayString = birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"));
+
+                return birthdayString;
             }
         }
-        public TimeSpan Age
+        public string Age
         {
             get
             {
+                DateOnly date = DateOnly.Parse(DateBirth);
+                TimeOnly time = TimeOnly.Parse(TimeBirth);
+                string combinedDateTime = $"{date} {time}";
+                DateTime birthday = DateTime.Parse(combinedDateTime);
+
+                string estimatedAge = "";
+
                 if (DateDeath == null)
                 {
                     DateTime currentDate = DateTime.Now;
-                    TimeSpan currentAge = currentDate.Subtract(Birthday);
+                    TimeSpan currentAge = currentDate.Subtract(birthday);
 
-                    return currentAge;
+                    int ageInDays = currentAge.Days;
+
+                    if (ageInDays >= 365)
+                    {
+                        int yearCounter = 0;
+
+                        while (ageInDays >= 365)
+                        {
+                            yearCounter++;
+                            ageInDays -= 365;
+                        }
+
+                        if (ageInDays > 0)
+                        {
+                            estimatedAge = $"{yearCounter} year(s) and {ageInDays} day(s) old";
+                        }
+                        else
+                        {
+                            estimatedAge = $"{yearCounter} year(s) old";
+                        }
+                    }
+                    else
+                    {
+                        estimatedAge = $"{ageInDays} day(s) old";
+                    }
+
+                    return estimatedAge;
                 }
                 else // DateDeath != null
                 {
                     DateOnly dateDeath = DateOnly.Parse(DateDeath);
-                    string combinedDateTime = $"{dateDeath} 12:00:00 AM";
-                    DateTime deathDay = DateTime.Parse(combinedDateTime);
-                    TimeSpan deathAge = deathDay.Subtract(Birthday);
+                    string combinedDeathDateTime = $"{dateDeath} 12:00:00 AM";
+                    DateTime deathDay = DateTime.Parse(combinedDeathDateTime);
+                    TimeSpan deathAge = deathDay.Subtract(birthday);
 
-                    return deathAge;
+                    int ageInDays = deathAge.Days;
+
+                    if (ageInDays >= 365)
+                    {
+                        int yearCounter = 0;
+
+                        while (ageInDays >= 365)
+                        {
+                            yearCounter++;
+                            ageInDays -= 365;
+                        }
+
+                        if (ageInDays > 0)
+                        {
+                            estimatedAge = $"{yearCounter} year(s) and {ageInDays} day(s) old";
+                        }
+                        else
+                        {
+                            estimatedAge = $"{yearCounter} year(s) old";
+                        }
+                    }
+                    else
+                    {
+                        estimatedAge = $"{ageInDays} day(s) old";
+                    }
+
+                    return estimatedAge;
                 }
             }
         }

@@ -1,7 +1,7 @@
 <template>
   <div id="user">
     
-    <table v-if="petList != ''">
+    <table class="table is-striped is-hoverable" v-if="petList != ''">
       <thead>
         <tr>
           <th>Name</th>
@@ -69,7 +69,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-</style>

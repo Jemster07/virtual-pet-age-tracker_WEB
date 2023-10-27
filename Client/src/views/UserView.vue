@@ -22,9 +22,11 @@
           <td>{{ pet.dateDeath }}</td>
           <td>{{ pet.age }}</td>
           <td>
-            <button>Edit</button>
-            <button>R.I.P</button>
-            <button>Delete</button>
+            <div class="buttons are-small">
+              <button class="button is-info">Edit</button>
+              <button class="button is-info">R.I.P</button>
+              <button class="button is-danger is-light">Delete</button>
+            </div>
           </td>
         </tr>
       </tbody>

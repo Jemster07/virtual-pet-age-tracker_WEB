@@ -8,7 +8,8 @@
       &nbsp;
       <router-link v-bind:to="{ name: 'user' }" v-if="$store.state.token != ''">{{ $store.state.user.username }}</router-link>
       &nbsp;
-      <router-link v-bind:to="{ name: 'support' }" v-if="$store.state.token != ''">Support</router-link>
+      <router-link v-bind:to="{ name: 'support' }" v-if="$store.state.token != '' && $store.state.user.role == 'user'">Support</router-link>
+      <router-link v-bind:to="{ name: 'admin' }" v-if="$store.state.token != '' && $store.state.user.role == 'admin'">Admin Page</router-link>
     </div>
     <router-view />
   </div>

@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import UserView from '../views/UserView.vue';
 import SupportView from '../views/SupportView.vue';
+import AdminView from '../views/AdminView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -62,6 +63,14 @@ const routes = [
     path: "/support",
     name: "support",
     component: SupportView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
     meta: {
       requiresAuth: true
     }

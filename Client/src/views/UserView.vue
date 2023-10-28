@@ -5,7 +5,7 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Brand</th>
+          <th>Brand/Species</th>
           <th>Type</th>
           <th>Birthday</th>
           <th>Date of Death</th>

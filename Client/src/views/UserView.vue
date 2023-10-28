@@ -1,6 +1,5 @@
 <template>
   <div id="user">
-    
     <table class="table is-striped is-hoverable" v-if="petList != ''">
       <thead>
         <tr>
@@ -23,7 +22,7 @@
           <td>{{ pet.age }}</td>
           <td>
             <div class="buttons are-small">
-              <button class="button is-info">Edit</button>
+              <button class="button is-info" v-on:click="openModal()">Edit</button>
               <button class="button is-info">R.I.P</button>
               <button class="button is-danger is-light">Delete</button>
             </div>
@@ -31,12 +30,46 @@
         </tr>
       </tbody>
     </table>
-  
+
+    <div id="edit-modal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          
+          <div class="field">
+            <label class="label">Label</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+              </div>
+              <p class="help">This is a help text</p>
+          </div>
+
+          <div class="field">
+            <label class="label">Label</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+              </div>
+              <p class="help">This is a help text</p>
+          </div>
+
+          <div class="field is-grouped is-grouped-right">
+            <p class="control">
+              <a class="button is-info">Submit</a>
+            </p>
+            <p class="control">
+              <a class="button is-light">Cancel</a>
+            </p>
+          </div>
+
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" v-on:click="closeModal()"></button>
+    </div>
   </div>
 </template>
 
 <script>
-import PetService from '../services/PetService.js';
+import PetService from "../services/PetService.js";
 
 export default {
   data() {
@@ -51,7 +84,18 @@ export default {
         timeBirth: "",
         userId: this.$store.state.user.userId,
       },
-    }
+      editPet: {
+        petId: 0,
+        petName: "",
+        petType: "",
+        brand: "",
+        dateBirth: "",
+        timeBirth: null,
+        dateDeath: null,
+        isHidden: true,
+        userId: this.$store.state.user.userId,
+      },
+    };
   },
 
   async mounted() {
@@ -62,12 +106,23 @@ export default {
     async listPets() {
       let response = await PetService.listPets(this.currentUserId);
 
-			if (response == null) {
-				console.log("There was an error loading your pet list.");
-			} else {
-				this.petList = response.data;
-			}
+      if (response == null) {
+        console.log("There was an error loading your pet list.");
+      } else {
+        this.petList = response.data;
+      }
+    },
+
+    openModal() {
+      const editModal = document.querySelector('#edit-modal');
+      const list = editModal.classList;
+      list.add("is-active");
+    },
+    closeModal() {
+      const editModal = document.querySelector('#edit-modal');
+      const list = editModal.classList;
+      list.remove("is-active");
     },
   },
-}
+};
 </script>

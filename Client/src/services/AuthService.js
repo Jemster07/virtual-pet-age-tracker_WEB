@@ -10,12 +10,8 @@ export default {
     return axios.post('/register', user)
   },
 
-  deactivateUser(user) {
-    return axios.delete(`/deactivate/${user.username}`)
-  },
-  
-  deleteUsers() {
-    return axios.delete('/delete/users')
+  deleteUser(user) {
+    return axios.delete(`/delete/${user.username}`)
   },
 
 }

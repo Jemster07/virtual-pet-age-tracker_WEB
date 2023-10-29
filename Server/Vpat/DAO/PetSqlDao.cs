@@ -198,7 +198,7 @@ namespace Vpat.DAO
             return ReadPet(pet.PetId);
         }
 
-        public bool DeactivatePet(int petId)
+        public bool DeletePet(int petId)
         {
             bool petDeleted = true;
             string sql = "UPDATE pets SET is_hidden = 1 WHERE pet_id = @petId;";
@@ -225,34 +225,6 @@ namespace Vpat.DAO
             }
 
             return petDeleted;
-        }
-
-        public bool DeletePets()
-        {
-            bool petsDeleted = true;
-            string sql = "DELETE FROM pets WHERE is_hidden = 1;";
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    int affectedRows = cmd.ExecuteNonQuery();
-
-                    if (affectedRows == 0)
-                    {
-                        petsDeleted = false;
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-
-            return petsDeleted;
         }
 
         private Pet GetPetFromReader(SqlDataReader reader)

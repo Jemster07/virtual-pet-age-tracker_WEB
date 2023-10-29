@@ -102,7 +102,7 @@ namespace Vpat.DAO
             return GetUserByUsername(username);
         }
 
-        public bool DeactivateUser(string username)
+        public bool DeleteUser(string username)
         {
             bool userDeleted = true;
             string sql = "UPDATE users SET is_hidden = 1 WHERE username = @username;";
@@ -129,34 +129,6 @@ namespace Vpat.DAO
             }
 
             return userDeleted;
-        }
-
-        public bool DeleteUsers()
-        {
-            bool usersDeleted = true;
-            string sql = "DELETE FROM users WHERE is_hidden = 1;";
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    int affectedRows = cmd.ExecuteNonQuery();
-
-                    if (affectedRows == 0)
-                    {
-                        usersDeleted = false;
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-
-            return usersDeleted;
         }
 
         private User GetUserFromReader(SqlDataReader reader)

@@ -9,7 +9,7 @@ namespace Vpat.Controllers
 {
 	[Route("[controller]")]
 	[ApiController]
-	//[Authorize]
+	[Authorize]
 	public class PetController : ControllerBase
 	{
 		private readonly IPetDao petDao;
@@ -89,12 +89,12 @@ namespace Vpat.Controllers
 			}
 		}
 
-		[HttpDelete("deactivate/{petId}")]
-		public ActionResult<bool> DeactivatePet(int petId)
+		[HttpDelete("delete/{petId}")]
+		public ActionResult<bool> DeletePet(int petId)
 		{
 			try
 			{
-				bool petDeleted = petDao.DeactivatePet(petId);
+				bool petDeleted = petDao.DeletePet(petId);
 
                 if (petDeleted)
 				{
@@ -110,29 +110,5 @@ namespace Vpat.Controllers
 				return StatusCode(500);
 			}
 		}
-
-        [Authorize(Roles ="admin")]
-		[HttpDelete("delete/pets")]
-		public ActionResult<bool> DeletePets()
-		{
-			try
-			{
-				bool petDeleted = petDao.DeletePets();
-
-                if (petDeleted)
-				{
-					return Ok(petDeleted);
-				}
-				else
-				{
-					return StatusCode(StatusCodes.Status503ServiceUnavailable, "Pets were not deleted!");
-                }
-			}
-			catch (Exception)
-			{
-				return StatusCode(500);
-			}
-		}
-
     }
 }

@@ -9,6 +9,7 @@ namespace Vpat.DAO
 		List<Pet> ListPets(int userId);
 		Pet WritePet(NewPet newPet);
 		Pet UpdatePet(Pet pet);
-		bool DeletePet(int petId);
+		bool DeactivatePet(int petId);
+		bool DeletePets();
 	}
 }

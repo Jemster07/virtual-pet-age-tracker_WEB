@@ -6,6 +6,7 @@ namespace Vpat.DAO
         User GetUserByUsername(string username);
         User GetUserByEmail(string email);
         User AddUser(string username, string email, string password, string role);
-        bool DeleteUser(string username);
+        bool DeactivateUser(string username);
+        bool DeleteUsers();
     }
 }

@@ -18,8 +18,12 @@ export default {
     return axios.put(`/pet/update/${pet.petId}`, pet)
   },
 
-  deletePet(pet) {
-    return axios.delete(`/pet/delete/${pet.petId}`)
-  }
+  deactivatePet(pet) {
+    return axios.delete(`/pet/deactivate/${pet.petId}`)
+  },
+
+  deletePets() {
+    return axios.delete('delete/pets')
+  },
 
 }

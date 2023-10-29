@@ -90,12 +90,12 @@ namespace Vpat.Controllers
             return result;
         }
 
-        [HttpDelete("/delete/{username}")]
-        public ActionResult<bool> DeleteUser(string username)
+        [HttpDelete("/deactivate/{username}")]
+        public ActionResult<bool> DeactivateUser(string username)
         {
             try
             {
-                bool userDeleted = userDao.DeleteUser(username);
+                bool userDeleted = userDao.DeactivateUser(username);
 
                 if (userDeleted)
                 {
@@ -104,6 +104,29 @@ namespace Vpat.Controllers
                 else
                 {
                     return StatusCode(StatusCodes.Status503ServiceUnavailable, "User account was not deleted!");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpDelete("/delete/users")]
+        public ActionResult<bool> DeleteUsers()
+        {
+            try
+            {
+                bool userDeleted = userDao.DeleteUsers();
+
+                if (userDeleted)
+                {
+                    return Ok(userDeleted);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status503ServiceUnavailable, "User accounts were not deleted!");
                 }
             }
             catch (Exception)

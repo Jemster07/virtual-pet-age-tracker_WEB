@@ -89,12 +89,12 @@ namespace Vpat.Controllers
 			}
 		}
 
-		[HttpDelete("delete/{petId}")]
-		public ActionResult<bool> DeletePet(int petId)
+		[HttpDelete("deactivate/{petId}")]
+		public ActionResult<bool> DeactivatePet(int petId)
 		{
 			try
 			{
-				bool petDeleted = petDao.DeletePet(petId);
+				bool petDeleted = petDao.DeactivatePet(petId);
 
                 if (petDeleted)
 				{
@@ -103,6 +103,29 @@ namespace Vpat.Controllers
 				else
 				{
 					return StatusCode(StatusCodes.Status503ServiceUnavailable, "Pet was not deleted!");
+                }
+			}
+			catch (Exception)
+			{
+				return StatusCode(500);
+			}
+		}
+
+        [Authorize(Roles = "admin")]
+		[HttpDelete("delete/pets")]
+		public ActionResult<bool> DeletePets()
+		{
+			try
+			{
+				bool petDeleted = petDao.DeletePets();
+
+                if (petDeleted)
+				{
+					return Ok(petDeleted);
+				}
+				else
+				{
+					return StatusCode(StatusCodes.Status503ServiceUnavailable, "Pets were not deleted!");
                 }
 			}
 			catch (Exception)

@@ -37,53 +37,55 @@
         <div class="box">
           <label class="label is-size-4">Edit {{ activePet.petName }}</label>
 
-          <div class="field">
-            <label class="label">Name</label>
-              <div class="control">
-                <input class="input" type="text" v-model="editPet.petName">
-              </div> 
-              <p class="help">Current Value: {{ activePet.petName }}</p>    
-          </div>
-          <div class="field">
-            <label class="label">Brand/Species</label>
-              <div class="control">
-                <input class="input" type="text" v-model="editPet.brand">
-              </div>
-              <p class="help">Current Value: {{ activePet.brand }}</p>    
-          </div>
-          <div class="field">
-            <label class="label">Type</label>
-              <div class="control">
-                <input class="input" type="text" v-model="editPet.petType">
-              </div>
-              <p class="help">Current Value: {{ activePet.petType }}</p>    
-          </div>
-          <div class="field">
-            <label class="label">Day of Birth</label>
-              <div class="control">
-                <input class="input" type="text" v-model="editPet.dateBirth">
-              </div>
-              <p class="help">Current Value: {{ activePet.dateBirth }}</p>    
-          </div>
-          <div class="field">
-            <label class="label">Time of Birth</label>
-              <div class="control">
-                <input class="input" type="text" v-model="editPet.timeBirth">
-              </div>
-              <p class="help">Current Value: {{ activePet.timeBirth }}</p>    
-          </div>
-          <div class="field is-grouped is-grouped-right">
-            <p class="control">
-              <a class="button is-info">Submit</a>
-            </p>
-            <p class="control">
-              <a class="button is-light" v-on:click="cancelForm()">Cancel</a>
-            </p>
-          </div>
+          <form v-on:submit.prevent="updatePet">
+              <div class="field">
+                  <label class="label">Name</label>
+                      <div class="control">
+                      <input class="input" type="text" maxLength="50" v-model="editPet.petName">
+                      </div> 
+                      <p class="help">Previous Value: {{ activePet.petName }}</p>    
+                  </div>
+                  <div class="field">
+                  <label class="label">Brand/Species</label>
+                      <div class="control">
+                      <input class="input" type="text" maxLength="50" v-model="editPet.brand">
+                      </div>
+                      <p class="help">Previous Value: {{ activePet.brand }}</p>    
+                  </div>
+                  <div class="field">
+                  <label class="label">Type</label>
+                      <div class="control">
+                      <input class="input" type="text" maxLength="50" v-model="editPet.petType">
+                      </div>
+                      <p class="help">Previous Value: {{ activePet.petType }}</p>    
+                  </div>
+                  <div class="field">
+                  <label class="label">Day of Birth</label>
+                      <div class="control">
+                      <input class="input" type="date" v-model="editPet.dateBirth">
+                      </div>
+                      <p class="help">Previous Value: {{ activePet.dateBirth }}</p>    
+                  </div>
+                  <div class="field">
+                  <label class="label">Time of Birth</label>
+                      <div class="control">
+                      <input class="input" type="time" v-model="editPet.timeBirth">
+                      </div>
+                      <p class="help">Previous Value: {{ activePet.timeBirth }}</p>    
+                  </div>
+                  <div class="field is-grouped is-grouped-right">
+                  <p class="control">
+                      <button type="submit" class="button is-info">Submit</button>
+                  </p>
+                  <p class="control">
+                      <a class="button is-light" v-on:click="closeForm()">Cancel</a>
+                  </p>
+              </div>    
+          </form>
 
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" v-on:click="cancelForm()"></button>
+      <button class="modal-close is-large" aria-label="close" v-on:click="closeForm()"></button>
     </div>
   </div>
 </template>
@@ -101,7 +103,7 @@ export default {
         petType: "",
         brand: "",
         dateBirth: "",
-        timeBirth: "",
+        timeBirth: null,
         userId: this.$store.state.user.userId,
       },
       editPet: {
@@ -135,13 +137,29 @@ export default {
 
   methods: {
     async listPets() {
-      let response = await PetService.listPets(this.currentUserId);
-
-      if (response == null) {
-        console.log("There was an error loading your pet list.");
-      } else {
-        this.petList = response.data;
-      }
+      await PetService.listPets(this.currentUserId).then(response => {
+        if (response) {
+          this.petList = response.data;
+        } else {
+          console.log("There was an error loading your pet list.");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+    async updatePet() {
+      await PetService.updatePet(this.editPet).then(response => {
+        if (response) {
+          this.closeForm();
+          this.listPets();
+        } else {
+          console.log(`There was an error updating ${this.activePet.petName}.`);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
     },
 
     openModal() {
@@ -159,15 +177,13 @@ export default {
       this.mapEditPet(pet);
       this.openModal();
     },
-    cancelForm() {
+    closeForm() {
       this.activePet = {};
       this.editPet = {};
       this.newPet = {};
       this.closeModal();
     },
-    submitForm() {
-      alert("Did it work?");
-    },
+
     mapActivePet(pet) {
       this.activePet.petId = pet.petId;
       this.activePet.petName = pet.petName;

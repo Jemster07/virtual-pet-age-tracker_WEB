@@ -40,7 +40,7 @@ const routes = [
     name: "logout",
     component: LogoutView,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -64,7 +64,7 @@ const routes = [
     name: "support",
     component: SupportView,
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
   {

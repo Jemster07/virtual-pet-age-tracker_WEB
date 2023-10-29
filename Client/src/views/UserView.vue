@@ -34,8 +34,9 @@
     <div id="edit-modal" class="modal is-clipped">
       <div class="modal-background"></div>
       <div class="modal-content">
-        <div class="box">       
+        <div class="box">
           <label class="label is-size-4">Edit {{ activePet.petName }}</label>
+
           <div class="field">
             <label class="label">Name</label>
               <div class="control">
@@ -79,6 +80,7 @@
               <a class="button is-light" v-on:click="cancelForm()">Cancel</a>
             </p>
           </div>
+
         </div>
       </div>
       <button class="modal-close is-large" aria-label="close" v-on:click="cancelForm()"></button>
@@ -162,6 +164,9 @@ export default {
       this.editPet = {};
       this.newPet = {};
       this.closeModal();
+    },
+    submitForm() {
+      alert("Did it work?");
     },
     mapActivePet(pet) {
       this.activePet.petId = pet.petId;

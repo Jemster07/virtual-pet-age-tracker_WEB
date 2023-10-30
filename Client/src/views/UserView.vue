@@ -1,35 +1,58 @@
 <template>
   <div id="user">
-    <table class="table is-striped is-hoverable" v-if="petList != ''">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Brand/Species</th>
-          <th>Type</th>
-          <th>Birthday</th>
-          <th>Date of Death</th>
-          <th>Age</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="pet in petList" :key="pet.petId">
-          <td>{{ pet.petName }}</td>
-          <td>{{ pet.brand }}</td>
-          <td>{{ pet.petType }}</td>
-          <td>{{ pet.birthday }}</td>
-          <td>{{ pet.dateDeath }}</td>
-          <td>{{ pet.age }}</td>
-          <td>
-            <div class="buttons are-small">
-              <button class="button is-info" v-on:click="editClicked(pet)">Edit</button>
-              <button class="button is-info">R.I.P</button>
-              <button class="button is-danger is-light">Delete</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="columns is-centered">
+        <div class="column is-narrow">
+          <div class="container box">
+            <table class="table is-hoverable" v-if="petList != ''">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Brand/Species</th>
+                  <th>Type</th>
+                  <th>Birthday</th>
+                  <th>Date of Death</th>
+                  <th>Age</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="pet in petList" :key="pet.petId">
+                  <td>{{ pet.petName }}</td>
+                  <td>{{ pet.brand }}</td>
+                  <td>{{ pet.petType }}</td>
+                  <td>{{ pet.birthday }}</td>
+                  <td>{{ pet.dateDeath }}</td>
+                  <td>{{ pet.age }}</td>
+                  <td>
+                    <div class="buttons are-small">
+                      <button class="button is-info" v-on:click="editClicked(pet)">Edit</button>
+                      <button class="button is-info">R.I.P</button>
+                      <button class="button is-danger is-light">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table> 
+          </div>
+        </div>
+      </div>     
+
+    <div id="alert-modal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          &nbsp;
+          <p class="label is-size-4 has-text-centered">{{ alertMessage }}</p>
+          &nbsp;
+          <div class="buttons is-centered">
+            <p class="control">
+              <a class="button is-info" v-on:click="closeAlert()">Okay</a>
+            </p>
+          </div>        
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" v-on:click="closeAlert()"></button>
+    </div>
 
     <div id="edit-modal" class="modal is-clipped">
       <div class="modal-background"></div>
@@ -78,14 +101,14 @@
                       <button type="submit" class="button is-info">Submit</button>
                   </p>
                   <p class="control">
-                      <a class="button is-light" v-on:click="closeForm()">Cancel</a>
+                      <a class="button is-light" v-on:click="closeEditForm()">Cancel</a>
                   </p>
               </div>    
           </form>
 
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" v-on:click="closeForm()"></button>
+      <button class="modal-close is-large" aria-label="close" v-on:click="closeEditForm()"></button>
     </div>
   </div>
 </template>
@@ -98,6 +121,8 @@ export default {
     return {
       currentUserId: this.$store.state.user.userId,
       petList: [],
+      alertMessage: "",
+      
       newPet: {
         petName: "",
         petType: "",
@@ -151,10 +176,13 @@ export default {
     async updatePet() {
       await PetService.updatePet(this.editPet).then(response => {
         if (response) {
-          this.closeForm();
+          this.alertMessage = `${this.editPet.petName} successfully updated.`;
+          this.closeEditForm();
           this.listPets();
+          this.openAlert();
         } else {
-          console.log(`There was an error updating ${this.activePet.petName}.`);
+          this.alertMessage = `There was an error updating ${this.activePet.petName}.`;
+          this.openAlert();
         }
       })
       .catch(error => {
@@ -162,26 +190,37 @@ export default {
       })
     },
 
-    openModal() {
+    openAlert() {
+      const alertModal = document.querySelector('#alert-modal');
+      const list = alertModal.classList;
+      list.add("is-active");
+    },
+    closeAlert() {     
+      const alertModal = document.querySelector('#alert-modal');
+      const list = alertModal.classList;
+      list.remove("is-active");
+      this.alertMessage = "";
+    },
+
+    editClicked(pet) {
+      this.mapActivePet(pet);
+      this.mapEditPet(pet);
+      this.openEditModal();
+    },
+    openEditModal() {
       const editModal = document.querySelector('#edit-modal');
       const list = editModal.classList;
       list.add("is-active");
     },
-    closeModal() {
+    closeEditModal() {
       const editModal = document.querySelector('#edit-modal');
       const list = editModal.classList;
       list.remove("is-active");
     },
-    editClicked(pet) {
-      this.mapActivePet(pet);
-      this.mapEditPet(pet);
-      this.openModal();
-    },
-    closeForm() {
+    closeEditForm() {
       this.activePet = {};
       this.editPet = {};
-      this.newPet = {};
-      this.closeModal();
+      this.closeEditModal();
     },
 
     mapActivePet(pet) {

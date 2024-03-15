@@ -64,28 +64,28 @@
               <div class="field">
                   <label class="label">Name</label>
                       <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="editPet.petName">
+                      <input class="input" type="text" maxLength="50" v-model="editPet.petName" required>
                       </div> 
                       <p class="help">Previous Value: {{ activePet.petName }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Brand/Species</label>
                       <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="editPet.brand">
+                      <input class="input" type="text" maxLength="50" v-model="editPet.brand" required>
                       </div>
                       <p class="help">Previous Value: {{ activePet.brand }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Type</label>
                       <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="editPet.petType">
+                      <input class="input" type="text" maxLength="50" v-model="editPet.petType" required>
                       </div>
                       <p class="help">Previous Value: {{ activePet.petType }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Day of Birth</label>
                       <div class="control">
-                      <input class="input" type="date" v-model="editPet.dateBirth">
+                      <input class="input" type="date" v-model="editPet.dateBirth" required>
                       </div>
                       <p class="help">Previous Value: {{ activePet.dateBirth }}</p>    
                   </div>

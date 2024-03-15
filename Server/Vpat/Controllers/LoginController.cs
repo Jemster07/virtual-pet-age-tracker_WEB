@@ -118,11 +118,11 @@ namespace Vpat.Controllers
         {
             try
             {
-                bool userDeleted = userDao.DeleteUsers();
+                bool usersDeleted = userDao.DeleteUsers();
 
-                if (userDeleted)
+                if (usersDeleted)
                 {
-                    return Ok(userDeleted);
+                    return Ok(usersDeleted);
                 }
                 else
                 {

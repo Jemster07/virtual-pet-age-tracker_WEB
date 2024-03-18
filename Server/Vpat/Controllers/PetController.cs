@@ -80,7 +80,12 @@ namespace Vpat.Controllers
 		public ActionResult<Pet> UpdatePet(Pet pet)
 		{
 			try
-			{
+			{				
+				string[] dateArray = pet.Birthday.Split(' ');
+				string dateBirth = dateArray[0];
+
+				pet.DateBirth = dateBirth;
+
 				return Ok(petDao.UpdatePet(pet));
 			}
 			catch (Exception)

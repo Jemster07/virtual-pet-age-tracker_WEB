@@ -81,10 +81,13 @@ namespace Vpat.Controllers
 		{
 			try
 			{				
-				string[] dateArray = pet.Birthday.Split(' ');
-				string dateBirth = dateArray[0];
+				string[] dateArray = pet.Birthday.Split(" at ");
 
+				string dateBirth = dateArray[0];
 				pet.DateBirth = dateBirth;
+
+				string timeBirth = dateArray[1];
+				pet.TimeBirth = timeBirth;
 
 				return Ok(petDao.UpdatePet(pet));
 			}

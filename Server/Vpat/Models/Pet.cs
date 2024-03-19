@@ -21,7 +21,7 @@ namespace Vpat.Models
             get
             {
                 DateTime birthday = timeSolver.ParseDateTime(DateBirth, TimeBirth);
-                string birthdayString = birthday.ToString("g", CultureInfo.CreateSpecificCulture("en-us"));
+                string birthdayString = birthday.ToString("MM/dd/yyyy \"at\" hh:mm:ss tt", CultureInfo.CreateSpecificCulture("en-us"));
 
                 return birthdayString;
             }

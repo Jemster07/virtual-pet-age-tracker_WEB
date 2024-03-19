@@ -7,7 +7,7 @@ namespace Vpat.DAO
 	{
 		Pet ReadPet(int petId);
 		List<Pet> ListPets(int userId);
-		Pet WritePet(NewPet newPet);
+		Pet WritePet(Pet Pet);
 		Pet UpdatePet(Pet pet);
 		bool DeactivatePet(int petId);
 		bool DeletePets();

@@ -3,16 +3,6 @@ namespace Vpat.Models
 {
 	public class TimeSolver
 	{
-		public DateTime ParseDateTime(string dateString, string timeString)
-		{
-            DateOnly date = DateOnly.Parse(dateString);
-            TimeOnly time = TimeOnly.Parse(timeString);
-            string dateTimeString = $"{date} {time}";
-            DateTime dateTime = DateTime.Parse(dateTimeString);
-
-            return dateTime;
-        }
-
         public string YearCount(int ageInDays)
         {
             string estimatedAge = "";

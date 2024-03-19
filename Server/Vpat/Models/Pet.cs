@@ -11,32 +11,19 @@ namespace Vpat.Models
         public string PetName { get; set; }
         public string PetType { get; set; }
         public string Brand { get; set; }
-        public string DateBirth { get; set; }
-        public string TimeBirth { get; set; }
-        public string DateDeath { get; set; }
+        public DateTime Birthday { get; set; }
+        public DateTime? DateDeath { get; set; }
         public bool IsHidden { get; set; }
         public int UserId { get; set; }
-        public string Birthday
-        {
-            get
-            {
-                DateTime birthday = timeSolver.ParseDateTime(DateBirth, TimeBirth);
-                string birthdayString = birthday.ToString("MM/dd/yyyy \"at\" hh:mm:ss tt", CultureInfo.CreateSpecificCulture("en-us"));
-
-                return birthdayString;
-            }
-        }
         public string Age
         {
             get
             {
-                DateTime birthday = timeSolver.ParseDateTime(DateBirth, TimeBirth);
-
                 if (DateDeath == null)
                 {
 
                     DateTime currentDate = DateTime.Now;
-                    TimeSpan currentAge = currentDate.Subtract(birthday);
+                    TimeSpan currentAge = currentDate.Subtract(Birthday);
 
                     int ageInDays = currentAge.Days;
                     string estimatedAge = timeSolver.YearCount(ageInDays);
@@ -45,8 +32,8 @@ namespace Vpat.Models
                 }
                 else // DateDeath != null
                 {
-                    DateTime deathDay = timeSolver.ParseDateTime(DateDeath, "12:00:00 AM");
-                    TimeSpan deathAge = deathDay.Subtract(birthday);
+                    DateTime deathDay = (DateTime)DateDeath;
+                    TimeSpan deathAge = deathDay.Subtract(Birthday);
 
                     int ageInDays = deathAge.Days;
                     string estimatedAge = timeSolver.YearCount(ageInDays);
@@ -55,6 +42,19 @@ namespace Vpat.Models
                 }
             }
         }
+    }
+
+    public class EditPet
+    {
+        public int PetId { get; set; }
+        public string PetName { get; set; }
+        public string PetType { get; set; }
+        public string Brand { get; set; }
+        public string DateBirth { get; set; }
+        public string TimeBirth { get; set; }
+        public string DateDeath { get; set; }
+        public bool IsHidden { get; set; }
+        public int UserId { get; set; }
     }
 
     public class NewPet

@@ -17,7 +17,7 @@ namespace Vpat.DAO
         public Pet ReadPet(int petId)
         {
             Pet pet = new Pet();
-            string sql = "SELECT pet_id, pet_name, pet_type, brand, date_birth, time_birth, " +
+            string sql = "SELECT pet_id, pet_name, pet_type, brand, birthday, " +
                 "date_death, is_hidden, user_id FROM pets WHERE pet_id = @petId;";
 
             try
@@ -47,7 +47,7 @@ namespace Vpat.DAO
         public List<Pet> ListPets(int userId)
         {
             List<Pet> petList = new List<Pet>();
-            string sql = "SELECT pet_id, pet_name, pet_type, brand, date_birth, time_birth, " +
+            string sql = "SELECT pet_id, pet_name, pet_type, brand, birthday, " +
                 "date_death, is_hidden, user_id FROM pets WHERE user_id = @userId AND is_hidden = 0 " +
                 "ORDER BY pet_name;";
 
@@ -77,23 +77,12 @@ namespace Vpat.DAO
             return petList;
         }
 
-        public Pet WritePet(NewPet newPet)
+        public Pet WritePet(Pet Pet)
         {
             int petId = 0;
-            string sql = "";
-
-            if (newPet.TimeBirth != null)
-            {
-                sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, time_birth, " +
+            string sql = "INSERT INTO pets (pet_name, pet_type, brand, birthday, " +
                 "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
-                "@brand, @dateBirth, @timeBirth, @isHidden, @userId);";
-            }
-            else // newPet.TimeBirth == null
-            {
-                sql = "INSERT INTO pets (pet_name, pet_type, brand, date_birth, " +
-                "is_hidden, user_id) OUTPUT INSERTED.pet_id VALUES (@petName, @petType, " +
-                "@brand, @dateBirth, @isHidden, @userId);";
-            }
+                "@brand, @birthday, @isHidden, @userId);";
 
             try
             {
@@ -102,18 +91,12 @@ namespace Vpat.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@petName", newPet.PetName);
-                    cmd.Parameters.AddWithValue("@petType", newPet.PetType);
-                    cmd.Parameters.AddWithValue("@brand", newPet.Brand);
-                    cmd.Parameters.AddWithValue("@dateBirth", newPet.DateBirth);
-
-                    if (newPet.TimeBirth != null)
-                    {
-                        cmd.Parameters.AddWithValue("@timeBirth", newPet.TimeBirth);
-                    }
-
+                    cmd.Parameters.AddWithValue("@petName", Pet.PetName);
+                    cmd.Parameters.AddWithValue("@petType", Pet.PetType);
+                    cmd.Parameters.AddWithValue("@brand", Pet.Brand);
+                    cmd.Parameters.AddWithValue("@birthday", Pet.Birthday);
                     cmd.Parameters.AddWithValue("@isHidden", false);
-                    cmd.Parameters.AddWithValue("@userId", newPet.UserId);
+                    cmd.Parameters.AddWithValue("@userId", Pet.UserId);
 
                     petId = Convert.ToInt32(cmd.ExecuteScalar());
                 }
@@ -130,32 +113,16 @@ namespace Vpat.DAO
         {
             string sql = "";
 
-            if (pet.TimeBirth != null)
+            if (pet.DateDeath != null)
             {
-                if (pet.DateDeath != null)
-                {
-                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
-                    "date_birth = @dateBirth, time_birth = @timeBirth, date_death = @dateDeath " +
-                    "WHERE pet_id = @petId;";
-                }
-                else // pet.DateDeath == null
-                {
-                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
-                    "date_birth = @dateBirth, time_birth = @timeBirth WHERE pet_id = @petId;";
-                }
+                sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
+                "birthday = @birthday, date_death = @dateDeath " +
+                "WHERE pet_id = @petId;";
             }
-            else // pet.TimeBirth == null
+            else // pet.DateDeath == null
             {
-                if (pet.DateDeath == null)
-                {
-                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
-                    "date_birth = @dateBirth WHERE pet_id = @petId;";
-                }
-                else //pet.DateDeath != null
-                {
-                    sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
-                    "date_birth = @dateBirth, date_death = @dateDeath WHERE pet_id = @petId;";
-                }
+                sql = "UPDATE pets SET pet_name = @petName, pet_type = @petType, brand = @brand, " +
+                "birthday = @birthday WHERE pet_id = @petId;";
             }
 
             try
@@ -168,12 +135,7 @@ namespace Vpat.DAO
                     cmd.Parameters.AddWithValue("@petName", pet.PetName);
                     cmd.Parameters.AddWithValue("@petType", pet.PetType);
                     cmd.Parameters.AddWithValue("@brand", pet.Brand);
-                    cmd.Parameters.AddWithValue("@dateBirth", pet.DateBirth);
-
-                    if (pet.TimeBirth != null)
-                    {
-                        cmd.Parameters.AddWithValue("@timeBirth", pet.TimeBirth);
-                    }
+                    cmd.Parameters.AddWithValue("@birthday", pet.Birthday);
 
                     if (pet.DateDeath != null)
                     {
@@ -263,9 +225,8 @@ namespace Vpat.DAO
                 PetName = Convert.ToString(reader["pet_name"]),
                 PetType = Convert.ToString(reader["pet_type"]),
                 Brand = Convert.ToString(reader["brand"]),
-                DateBirth = Convert.ToString(reader["date_birth"]),
-                TimeBirth = reader["time_birth"].GetType() == typeof(DBNull) ? "12:00:00 AM" : Convert.ToString(reader["time_birth"]),
-                DateDeath = reader["date_death"].GetType() == typeof(DBNull) ? null : Convert.ToString(reader["date_death"]),
+                Birthday = Convert.ToDateTime(reader["birthday"]),
+                DateDeath = reader["date_death"].GetType() == typeof(DBNull) ? null : Convert.ToDateTime(reader["date_death"]),
                 IsHidden = Convert.ToBoolean(reader["is_hidden"]),
                 UserId = Convert.ToInt32(reader["user_id"]),
             };

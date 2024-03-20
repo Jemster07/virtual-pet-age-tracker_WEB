@@ -92,9 +92,13 @@
                   <div class="field">
                   <label class="label">Time of Birth</label>
                       <div class="control">
-                      <input class="input" type="time" v-model="editPet.timeBirth" required>
+                      <input class="input" type="time" id="edit-timeBirth" v-model="editPet.timeBirth" required>                     
                       </div>
-                      <p class="help">Previous Value: {{ activePet.timeBirth }}</p>    
+                      <p class="help">Previous Value: {{ activePet.timeBirth }}</p>
+                      <br>
+                      <label class="checkbox">
+                        <input type="checkbox" id="editCheckbox" name="editCheckboxClicked" v-on:change="editCheckboxClicked()"> Use current time 
+                      </label>    
                   </div>
                   <div class="field is-grouped is-grouped-right">
                   <p class="control">
@@ -218,6 +222,9 @@ export default {
       list.remove("is-active");
     },
     closeEditForm() {
+      var chkBox = document.getElementById('editCheckbox');
+      chkBox.checked = false;
+      
       this.activePet = {};
       this.editPet = {};
       this.closeEditModal();
@@ -240,6 +247,23 @@ export default {
       this.editPet.dateBirth = pet.dateBirth;
       this.editPet.timeBirth = pet.timeBirth;
       this.editPet.dateDeath = pet.dateDeath;
+    },
+
+    editCheckboxClicked() {
+      var chkBox = document.getElementById('editCheckbox');
+      
+      if (chkBox.checked) {        
+        const dateTime = Date.now();
+        const options = {
+          hour: "2-digit",
+          minute: "2-digit",
+        };             
+        const currentTime = new Date(dateTime).toLocaleString("en-GB", options);
+        this.editPet.timeBirth = currentTime;
+
+        const timeInput = document.querySelector("#edit-timeBirth");
+        timeInput.setAttribute("readonly", "");
+      }
     },
 
     formattedBirthday(pet) {     

@@ -228,8 +228,8 @@ export default {
       this.activePet.petName = pet.petName;
       this.activePet.petType = pet.petType;
       this.activePet.brand = pet.brand;
-      this.activePet.dateBirth = pet.dateBirth;
-      this.activePet.timeBirth = pet.timeBirth;
+      this.activePet.dateBirth = this.formattedDateBirth(pet);
+      this.activePet.timeBirth = this.formattedTimeBirth(pet);
       this.activePet.dateDeath = pet.dateDeath;
     },
     mapEditPet(pet) {
@@ -244,12 +244,24 @@ export default {
 
     formattedBirthday(pet) {     
       const dateTime = pet.birthday;
-
       const options = {
         dateStyle: 'medium',
-        timeStyle: 'medium',
-      };
-      
+        timeStyle: 'short',
+      };     
+      return new Date(dateTime).toLocaleString(undefined, options);
+    },
+    formattedDateBirth(pet) {     
+      const dateTime = pet.birthday;
+      const options = {
+        dateStyle: 'medium',
+      };     
+      return new Date(dateTime).toLocaleString(undefined, options);
+    },
+    formattedTimeBirth(pet) {     
+      const dateTime = pet.birthday;
+      const options = {
+        timeStyle: 'short',
+      };     
       return new Date(dateTime).toLocaleString(undefined, options);
     },
   },

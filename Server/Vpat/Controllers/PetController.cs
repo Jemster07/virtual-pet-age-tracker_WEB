@@ -138,18 +138,18 @@ namespace Vpat.Controllers
 			}
 		}
 
-		public Pet EditPetMapper(EditPet editPet)
+		protected Pet EditPetMapper(EditPet editPet)
 		{
 			DateOnly date = DateOnly.Parse(editPet.DateBirth);
             TimeOnly time = TimeOnly.Parse(editPet.TimeBirth);
             string dateTimeString = $"{date} {time}";
-            DateTime editPetBirthday = DateTime.Parse(dateTimeString).ToUniversalTime();
+            DateTime editPetBirthday = DateTime.Parse(dateTimeString);
 
 			DateTime? editPetDeath = null;
 
 			if (editPet.DateDeath != "" && editPet.DateDeath != null)
 			{
-				editPetDeath = DateTime.Parse(editPet.DateDeath).ToUniversalTime();
+				editPetDeath = DateTime.Parse(editPet.DateDeath);
 			}
 			
 			Pet pet = new Pet
@@ -167,12 +167,12 @@ namespace Vpat.Controllers
 			return pet;
 		}
 
-		public Pet NewPetMapper(NewPet newPet)
+		protected Pet NewPetMapper(NewPet newPet)
 		{
 			DateOnly date = DateOnly.Parse(newPet.DateBirth);
             TimeOnly time = TimeOnly.Parse(newPet.TimeBirth);
             string dateTimeString = $"{date} {time}";
-            DateTime newPetBirthday = DateTime.Parse(dateTimeString).ToUniversalTime();
+            DateTime newPetBirthday = DateTime.Parse(dateTimeString);
 
 			Pet pet = new Pet
 			{

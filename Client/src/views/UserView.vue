@@ -20,7 +20,7 @@
                   <td>{{ pet.petName }}</td>
                   <td>{{ pet.brand }}</td>
                   <td>{{ pet.petType }}</td>
-                  <td>{{ pet.birthday }}</td>
+                  <td>{{ formattedBirthday(pet) }}</td>
                   <td>{{ pet.dateDeath }}</td>
                   <td>{{ pet.age }}</td>
                   <td>
@@ -92,7 +92,7 @@
                   <div class="field">
                   <label class="label">Time of Birth</label>
                       <div class="control">
-                      <input class="input" type="time" v-model="editPet.timeBirth">
+                      <input class="input" type="time" v-model="editPet.timeBirth" required>
                       </div>
                       <p class="help">Previous Value: {{ activePet.timeBirth }}</p>    
                   </div>
@@ -128,7 +128,7 @@ export default {
         petType: "",
         brand: "",
         dateBirth: "",
-        timeBirth: null,
+        timeBirth: "",
         userId: this.$store.state.user.userId,
       },
       editPet: {
@@ -240,6 +240,17 @@ export default {
       this.editPet.dateBirth = pet.dateBirth;
       this.editPet.timeBirth = pet.timeBirth;
       this.editPet.dateDeath = pet.dateDeath;
+    },
+
+    formattedBirthday(pet) {     
+      const dateTime = pet.birthday;
+
+      const options = {
+        dateStyle: 'medium',
+        timeStyle: 'medium',
+      };
+      
+      return new Date(dateTime).toLocaleString(undefined, options);
     },
   },
 };

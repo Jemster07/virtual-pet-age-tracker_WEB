@@ -2,7 +2,6 @@
 
 ### To Do:
 
-- Fix date and time format
 - Add an R.I.P form that opens in a modal to input the dateDeath property
 - Add a new pet form that opens in a modal
 - Create an admin page that fetches a list of hidden users and pets from the database
@@ -11,6 +10,7 @@
 
 ### ~~Done:~~
 
+- Fix date and time format
 - Add required fields to forms
 - Add an edit pet form that opens in a modal
 - Indicate that edit pet/add pet was successful

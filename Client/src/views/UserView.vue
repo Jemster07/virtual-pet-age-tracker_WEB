@@ -225,6 +225,9 @@ export default {
       var chkBox = document.getElementById('editCheckbox');
       chkBox.checked = false;
       
+      const timeInput = document.querySelector("#edit-timeBirth");
+      timeInput.removeAttribute("readonly", "");
+      
       this.activePet = {};
       this.editPet = {};
       this.closeEditModal();
@@ -251,7 +254,8 @@ export default {
 
     editCheckboxClicked() {
       var chkBox = document.getElementById('editCheckbox');
-      
+      const timeInput = document.querySelector("#edit-timeBirth");
+
       if (chkBox.checked) {        
         const dateTime = Date.now();
         const options = {
@@ -261,8 +265,10 @@ export default {
         const currentTime = new Date(dateTime).toLocaleString("en-GB", options);
         this.editPet.timeBirth = currentTime;
 
-        const timeInput = document.querySelector("#edit-timeBirth");
         timeInput.setAttribute("readonly", "");
+      }
+      else {
+        timeInput.removeAttribute("readonly", "");
       }
     },
 

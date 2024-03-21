@@ -2,7 +2,20 @@
   <div id="user">
       <div class="columns is-centered">
         <div class="column is-narrow">
-          <div class="container box">
+
+          <div class="columns">
+            <div class="column"></div>
+            <div class="column">
+              <h1 class="title has-text-centered">{{ $store.state.user.username }}'s pets</h1>
+            </div>
+            <div class="column">
+              <div class="container">
+                <button class="button is-success is-pulled-right">Add New Pet</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="container box">            
             <table class="table is-hoverable" v-if="petList != ''">
               <thead>
                 <tr>

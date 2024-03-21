@@ -81,7 +81,7 @@
       <div class="modal-background"></div>
       <div class="modal-content">
         <div class="box">
-          <label class="label is-size-4">Add a New Pet</label>
+          <label class="label is-size-4 has-text-centered">Add a New Pet</label>
 
           <form v-on:submit.prevent="">
               <div class="field">
@@ -137,7 +137,7 @@
       <div class="modal-background"></div>
       <div class="modal-content">
         <div class="box">
-          <label class="label is-size-4">Edit {{ activePet.petName }}</label>
+          <label class="label is-size-4 has-text-centered">Edit {{ activePet.petName }}</label>
 
           <form v-on:submit.prevent="updatePet">
               <div class="field">

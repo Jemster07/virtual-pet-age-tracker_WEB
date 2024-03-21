@@ -4,49 +4,59 @@
         <div class="column is-narrow">
 
           <div class="columns">
-            <div class="column"></div>
             <div class="column">
               <h1 class="title has-text-centered">{{ $store.state.user.username }}'s pets</h1>
             </div>
+          </div>
+
+          <div class="columns is-vcentered">
             <div class="column">
+                <hr class="solid">
+            </div>
+            <div class="column is-narrow">
               <div class="container">
-                <button class="button is-success is-pulled-right">Add New Pet</button>
+                <button class="button is-success is-pulled-right" v-on:click="openNewModal()">Add New Pet</button>
               </div>
             </div>
           </div>
 
-          <div class="container box">            
-            <table class="table is-hoverable" v-if="petList != ''">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Brand/Species</th>
-                  <th>Type</th>
-                  <th>Birthday</th>
-                  <th>Date of Death</th>
-                  <th>Age</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="pet in petList" :key="pet.petId">
-                  <td>{{ pet.petName }}</td>
-                  <td>{{ pet.brand }}</td>
-                  <td>{{ pet.petType }}</td>
-                  <td>{{ formattedBirthday(pet) }}</td>
-                  <td>{{ pet.dateDeath }}</td>
-                  <td>{{ pet.age }}</td>
-                  <td>
-                    <div class="buttons are-small">
-                      <button class="button is-info" v-on:click="editClicked(pet)">Edit</button>
-                      <button class="button is-info">R.I.P</button>
-                      <button class="button is-danger is-light">Delete</button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table> 
+          <div class="columns">
+            <div class="column">
+              <div class="container box">            
+                <table class="table is-hoverable" v-if="petList != ''">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Brand/Species</th>
+                      <th>Type</th>
+                      <th>Birthday</th>
+                      <th>Date of Death</th>
+                      <th>Age</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="pet in petList" :key="pet.petId">
+                      <td>{{ pet.petName }}</td>
+                      <td>{{ pet.brand }}</td>
+                      <td>{{ pet.petType }}</td>
+                      <td>{{ formattedBirthday(pet) }}</td>
+                      <td>{{ pet.dateDeath }}</td>
+                      <td>{{ pet.age }}</td>
+                      <td>
+                        <div class="buttons are-small">
+                          <button class="button is-info" v-on:click="editClicked(pet)">Edit</button>
+                          <button class="button is-info">R.I.P</button>
+                          <button class="button is-danger is-light">Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table> 
+              </div>
+            </div>
           </div>
+
         </div>
       </div>     
 
@@ -65,6 +75,62 @@
         </div>
       </div>
       <button class="modal-close is-large" aria-label="close" v-on:click="closeAlert()"></button>
+    </div>
+
+    <div id="new-modal" class="modal is-clipped">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <label class="label is-size-4">Add a New Pet</label>
+
+          <form v-on:submit.prevent="">
+              <div class="field">
+                  <label class="label">Name</label>
+                    <div class="control">
+                      <input class="input" type="text" maxLength="50" v-model="newPet.petName" required>
+                    </div> 
+              </div>
+              <div class="field">
+                  <label class="label">Brand/Species</label>
+                    <div class="control">
+                      <input class="input" type="text" maxLength="50" v-model="newPet.brand" required>
+                    </div>
+              </div>
+              <div class="field">
+                  <label class="label">Type</label>
+                    <div class="control">
+                      <input class="input" type="text" maxLength="50" v-model="newPet.petType" required>
+                    </div>
+              </div>
+              <div class="field">
+                  <label class="label">Day of Birth</label>
+                    <div class="control">
+                      <input class="input" type="date" v-model="newPet.dateBirth" required>
+                    </div>
+              </div>
+              <div class="field">
+                  <label class="label">Time of Birth</label>
+                    <div class="control">
+                      <input class="input" type="time" id="new-timeBirth" v-model="newPet.timeBirth" required>                     
+                    </div>
+                    <br>
+                    <label class="checkbox">
+                      <input type="checkbox" id="newCheckbox" name="newCheckboxClicked" v-on:change="newCheckboxClicked()"> Use current time 
+                    </label>    
+              </div>
+              <div class="field is-grouped is-grouped-right">
+                  <p class="control">
+                    <button type="submit" class="button is-info">Submit</button>
+                  </p>
+                  <p class="control">
+                    <a class="button is-light" v-on:click="closeNewForm()">Cancel</a>
+                  </p>
+              </div>    
+          </form>
+
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" v-on:click="closeNewForm()"></button>
     </div>
 
     <div id="edit-modal" class="modal is-clipped">
@@ -219,6 +285,46 @@ export default {
       this.alertMessage = "";
     },
 
+    openNewModal() {
+      const newModal = document.querySelector('#new-modal');
+      const list = newModal.classList;
+      list.add("is-active");
+    },
+    closeNewModal() {
+      const newModal = document.querySelector('#new-modal');
+      const list = newModal.classList;
+      list.remove("is-active");
+    },
+    closeNewForm() {
+      var chkBox = document.getElementById('newCheckbox');
+      chkBox.checked = false;
+      
+      const timeInput = document.querySelector("#new-timeBirth");
+      timeInput.removeAttribute("readonly", "");
+      
+      this.newPet = {};
+      this.closeNewModal();
+    },
+    newCheckboxClicked() {
+      var chkBox = document.getElementById('newCheckbox');
+      const timeInput = document.querySelector("#new-timeBirth");
+
+      if (chkBox.checked) {        
+        const dateTime = Date.now();
+        const options = {
+          hour: "2-digit",
+          minute: "2-digit",
+        };             
+        const currentTime = new Date(dateTime).toLocaleString("en-GB", options);
+        this.newPet.timeBirth = currentTime;
+
+        timeInput.setAttribute("readonly", "");
+      }
+      else {
+        timeInput.removeAttribute("readonly", "");
+      }
+    },
+
     editClicked(pet) {
       this.mapActivePet(pet);
       this.mapEditPet(pet);
@@ -245,26 +351,6 @@ export default {
       this.editPet = {};
       this.closeEditModal();
     },
-
-    mapActivePet(pet) {
-      this.activePet.petId = pet.petId;
-      this.activePet.petName = pet.petName;
-      this.activePet.petType = pet.petType;
-      this.activePet.brand = pet.brand;
-      this.activePet.dateBirth = this.formattedDateBirth(pet);
-      this.activePet.timeBirth = this.formattedTimeBirth(pet);
-      this.activePet.dateDeath = pet.dateDeath;
-    },
-    mapEditPet(pet) {
-      this.editPet.petId = pet.petId;
-      this.editPet.petName = pet.petName;
-      this.editPet.petType = pet.petType;
-      this.editPet.brand = pet.brand;
-      this.editPet.dateBirth = pet.dateBirth;
-      this.editPet.timeBirth = pet.timeBirth;
-      this.editPet.dateDeath = pet.dateDeath;
-    },
-
     editCheckboxClicked() {
       var chkBox = document.getElementById('editCheckbox');
       const timeInput = document.querySelector("#edit-timeBirth");
@@ -283,6 +369,25 @@ export default {
       else {
         timeInput.removeAttribute("readonly", "");
       }
+    },
+
+    mapActivePet(pet) {
+      this.activePet.petId = pet.petId;
+      this.activePet.petName = pet.petName;
+      this.activePet.petType = pet.petType;
+      this.activePet.brand = pet.brand;
+      this.activePet.dateBirth = this.formattedDateBirth(pet);
+      this.activePet.timeBirth = this.formattedTimeBirth(pet);
+      this.activePet.dateDeath = pet.dateDeath;
+    },
+    mapEditPet(pet) {
+      this.editPet.petId = pet.petId;
+      this.editPet.petName = pet.petName;
+      this.editPet.petType = pet.petType;
+      this.editPet.brand = pet.brand;
+      this.editPet.dateBirth = pet.dateBirth;
+      this.editPet.timeBirth = pet.timeBirth;
+      this.editPet.dateDeath = pet.dateDeath;
     },
 
     formattedBirthday(pet) {     
@@ -310,3 +415,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  hr.solid {
+    border-top: 2px solid lightgrey;
+  }
+</style>

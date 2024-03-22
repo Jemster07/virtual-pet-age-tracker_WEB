@@ -83,7 +83,7 @@
         <div class="box">
           <label class="label is-size-4 has-text-centered">Add a New Pet</label>
 
-          <form v-on:submit.prevent="">
+          <form v-on:submit.prevent="addPet">
               <div class="field">
                   <label class="label">Name</label>
                     <div class="control">
@@ -265,6 +265,22 @@ export default {
           this.openAlert();
         } else {
           this.alertMessage = `There was an error updating ${this.activePet.petName}.`;
+          this.openAlert();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+    async addPet() {
+      await PetService.addPet(this.newPet).then(response => {
+        if (response) {
+          this.alertMessage = `${this.newPet.petName} successfully added`;
+          this.closeNewForm();
+          this.listPets();
+          this.openAlert();
+        } else {
+          this.alertMessage = `There was an error adding ${this.newPet.petName}.`;
           this.openAlert();
         }
       })

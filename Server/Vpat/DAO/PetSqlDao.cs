@@ -49,7 +49,7 @@ namespace Vpat.DAO
             List<Pet> petList = new List<Pet>();
             string sql = "SELECT pet_id, pet_name, pet_type, brand, birthday, " +
                 "date_death, is_hidden, user_id FROM pets WHERE user_id = @userId AND is_hidden = 0 " +
-                "ORDER BY pet_name;";
+                "ORDER BY birthday DESC;";
 
             try
             {

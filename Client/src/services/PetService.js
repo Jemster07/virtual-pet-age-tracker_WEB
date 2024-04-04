@@ -10,8 +10,8 @@ export default {
     return axios.get(`/${userId}`)
   },
 
-  addPet(newPet) {
-    return axios.post('/pet/add', newPet)
+  addPet(pet) {
+    return axios.post('/pet/add', pet)
   },
 
   updatePet(pet) {

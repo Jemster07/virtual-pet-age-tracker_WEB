@@ -64,11 +64,11 @@ namespace Vpat.Controllers
 		}
 
 		[HttpPost("add")]
-		public ActionResult<Pet> AddPet(NewPet newPet)
+		public ActionResult<Pet> AddPet(ViewPet viewPet)
 		{
 			try
 			{
-				Pet pet = NewPetMapper(newPet);
+				Pet pet = ViewPetMapper(viewPet);
 				
 				return Ok(petDao.WritePet(pet));
 			}
@@ -79,11 +79,11 @@ namespace Vpat.Controllers
 		}
 
 		[HttpPut("update/{petId}")]
-		public ActionResult<Pet> UpdatePet(EditPet editPet)
+		public ActionResult<Pet> UpdatePet(ViewPet viewPet)
 		{
 			try
 			{				
-				Pet pet = EditPetMapper(editPet);
+				Pet pet = ViewPetMapper(viewPet);
 				
 				return Ok(petDao.UpdatePet(pet));
 			}
@@ -138,52 +138,30 @@ namespace Vpat.Controllers
 			}
 		}
 
-		protected Pet EditPetMapper(EditPet editPet)
+		protected Pet ViewPetMapper(ViewPet viewPet)
 		{
-			DateOnly date = DateOnly.Parse(editPet.DateBirth);
-            TimeOnly time = TimeOnly.Parse(editPet.TimeBirth);
+			DateOnly date = DateOnly.Parse(viewPet.DateBirth);
+            TimeOnly time = TimeOnly.Parse(viewPet.TimeBirth);
             string dateTimeString = $"{date} {time}";
-            DateTime editPetBirthday = DateTime.Parse(dateTimeString);
+            DateTime viewPetBirthday = DateTime.Parse(dateTimeString);
 
-			DateTime? editPetDeath = null;
+			DateTime? viewPetDeath = null;
 
-			if (editPet.DateDeath != "" && editPet.DateDeath != null)
+			if (viewPet.DateDeath != "" && viewPet.DateDeath != null)
 			{
-				editPetDeath = DateTime.Parse(editPet.DateDeath);
+				viewPetDeath = DateTime.Parse(viewPet.DateDeath);
 			}
 			
 			Pet pet = new Pet
 			{
-				PetId = editPet.PetId,
-				PetName = editPet.PetName,
-				PetType = editPet.PetType,
-				Brand = editPet.Brand,
-				Birthday = editPetBirthday,
-				DateDeath = editPetDeath,
-				IsHidden = editPet.IsHidden,
-				UserId = editPet.UserId
-			};
-
-			return pet;
-		}
-
-		protected Pet NewPetMapper(NewPet newPet)
-		{
-			DateOnly date = DateOnly.Parse(newPet.DateBirth);
-            TimeOnly time = TimeOnly.Parse(newPet.TimeBirth);
-            string dateTimeString = $"{date} {time}";
-            DateTime newPetBirthday = DateTime.Parse(dateTimeString);
-
-			Pet pet = new Pet
-			{
-				PetId = 0,
-				PetName = newPet.PetName,
-				PetType = newPet.PetType,
-				Brand = newPet.Brand,
-				Birthday = newPetBirthday,
-				DateDeath = null,
-				IsHidden = false,
-				UserId = newPet.UserId
+				PetId = viewPet.PetId,
+				PetName = viewPet.PetName,
+				PetType = viewPet.PetType,
+				Brand = viewPet.Brand,
+				Birthday = viewPetBirthday,
+				DateDeath = viewPetDeath,
+				IsHidden = viewPet.IsHidden,
+				UserId = viewPet.UserId
 			};
 
 			return pet;

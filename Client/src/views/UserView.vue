@@ -46,7 +46,7 @@
                       <td>
                         <div class="buttons are-small">
                           <button class="button is-info" v-on:click="editClicked(pet)">Edit</button>
-                          <button class="button is-info">R.I.P</button>
+                          <button class="button is-info" v-if="pet.dateDeath == null" v-on:click="ripClicked(pet)">R.I.P</button>
                           <button class="button is-danger is-light">Delete</button>
                         </div>
                       </td>
@@ -84,53 +84,55 @@
           <label class="label is-size-4 has-text-centered">{{ formTitle }}</label>
 
           <form v-on:submit.prevent="submitForm">
+            <div v-if="buttonTrigger != 'ripPet'">
               <div class="field">
-                  <label class="label">Name</label>
-                      <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="editPet.petName" required>
-                      </div> 
-                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.petName }}</p>    
-                  </div>
-                  <div class="field">
-                  <label class="label">Brand/Species</label>
-                      <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="editPet.brand" required>
-                      </div>
-                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.brand }}</p>    
-                  </div>
-                  <div class="field">
-                  <label class="label">Type</label>
-                      <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="editPet.petType" required>
-                      </div>
-                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.petType }}</p>    
-                  </div>
-                  <div class="field">
-                  <label class="label">Day of Birth</label>
-                      <div class="control">
-                      <input class="input" type="date" v-model="editPet.dateBirth" required>
-                      </div>
-                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.dateBirth }}</p>    
-                  </div>
-                  <div class="field">
-                  <label class="label">Time of Birth</label>
-                      <div class="control">
-                      <input class="input" type="time" id="form-timeBirth" v-model="editPet.timeBirth" required>                     
-                      </div>
-                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.timeBirth }}</p>
-                      <br>
-                      <label class="checkbox">
-                        <input type="checkbox" id="formCheckbox" name="formCheckboxClicked" v-on:change="formCheckboxClicked()"> Use current time 
-                      </label>    
-                  </div>
-                  <div class="field is-grouped is-grouped-right">
-                  <p class="control">
-                      <button type="submit" class="button is-info">Submit</button>
-                  </p>
-                  <p class="control">
-                      <a class="button is-light" v-on:click="closeForm()">Cancel</a>
-                  </p>
-              </div>    
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input" type="text" maxLength="50" v-model="viewPet.petName" required>
+                </div> 
+                <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ selectedPet.petName }}</p>    
+              </div>
+              <div class="field">
+                <label class="label">Brand/Species</label>
+                <div class="control">
+                  <input class="input" type="text" maxLength="50" v-model="viewPet.brand" required>
+                </div>
+                <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ selectedPet.brand }}</p>    
+              </div>
+              <div class="field">
+                <label class="label">Type</label>
+                <div class="control">
+                  <input class="input" type="text" maxLength="50" v-model="viewPet.petType" required>
+                </div>
+                <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ selectedPet.petType }}</p>    
+              </div>
+              <div class="field">
+                <label class="label">Day of Birth</label>
+                <div class="control">
+                  <input class="input" type="date" v-model="viewPet.dateBirth" required>
+                </div>
+                <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ selectedPet.dateBirth }}</p>    
+              </div>
+              <div class="field">
+                <label class="label">Time of Birth</label>
+                <div class="control">
+                  <input class="input" type="time" id="form-timeBirth" v-model="viewPet.timeBirth" required>                     
+                </div>
+                <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ selectedPet.timeBirth }}</p>
+                <br>
+                <label class="checkbox">
+                  <input type="checkbox" id="formCheckbox" name="formCheckboxClicked" v-on:change="formCheckboxClicked()"> Use current time 
+                </label>    
+              </div>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <p class="control">
+                <button type="submit" class="button is-info">Submit</button>
+              </p>
+              <p class="control">
+                <a class="button is-light" v-on:click="closeForm()">Cancel</a>
+              </p>
+            </div>    
           </form>
 
         </div>
@@ -152,7 +154,7 @@ export default {
       buttonTrigger: "",
       formTitle: "",
 
-      editPet: {
+      viewPet: {
         petId: 0,
         petName: "",
         petType: "",
@@ -163,7 +165,7 @@ export default {
         isHidden: false,
         userId: this.$store.state.user.userId,
       },
-      activePet: {
+      selectedPet: {
         petId: 0,
         petName: "",
         petType: "",
@@ -195,14 +197,14 @@ export default {
       })
     },
     async updatePet() {
-      await PetService.updatePet(this.editPet).then(response => {
+      await PetService.updatePet(this.viewPet).then(response => {
         if (response) {
-          this.alertMessage = `${this.editPet.petName} successfully updated.`;
+          this.alertMessage = `${this.viewPet.petName} successfully updated.`;
           this.closeForm();
           this.listPets();
           this.openAlert();
         } else {
-          this.alertMessage = `There was an error updating ${this.activePet.petName}.`;
+          this.alertMessage = `There was an error updating ${this.selectedPet.petName}.`;
           this.openAlert();
         }
       })
@@ -211,14 +213,14 @@ export default {
       })
     },
     async addPet() {
-      await PetService.addPet(this.editPet).then(response => {
+      await PetService.addPet(this.viewPet).then(response => {
         if (response) {
-          this.alertMessage = `${this.editPet.petName} successfully added`;
+          this.alertMessage = `${this.viewPet.petName} successfully added`;
           this.closeForm();
           this.listPets();
           this.openAlert();
         } else {
-          this.alertMessage = `There was an error adding ${this.editPet.petName}.`;
+          this.alertMessage = `There was an error adding ${this.viewPet.petName}.`;
           this.openAlert();
         }
       })
@@ -226,6 +228,19 @@ export default {
         console.log(error);
       })
     },
+    async deactivatePet() {
+      await PetService.deactivatePet(this.viewPet).then(response => {
+        if (response) {
+          this.alertMessage = `Rest in peace, ${this.viewPet.petName}!`;
+        } else {
+          this.alertMessage = `There was an error recording ${this.selectedPet.petName}'s death.`;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+
 
     openAlert() {
       const alertModal = document.querySelector('#alert-modal');
@@ -239,6 +254,7 @@ export default {
       this.alertMessage = "";
     },
 
+
     addClicked() {
       this.buttonTrigger = "addPet";
       this.formTitle = "Add a New Pet";
@@ -246,20 +262,18 @@ export default {
     },
     editClicked(pet) {
       this.buttonTrigger = "editPet";
-      this.formTitle = "Edit " + pet.name;
-      this.mapActivePet(pet);
-      this.mapEditPet(pet);
+      this.formTitle = `Edit ${pet.petName}`;
+      this.mapSelectedPet(pet);
+      this.mapViewPet(pet);
       this.openFormModal();
     },
-    submitForm() {
-      if (this.buttonTrigger === "addPet") {
-				this.addPet();
-			}
-			else // this.buttonTrigger === "editPet"
-			{
-				this.updatePet();
-			}
+    ripClicked(pet) {
+      this.buttonTrigger = "ripPet";
+      this.formTitle = `Record ${pet.petName}'s Death`;
+      this.mapViewPet(pet);
+      this.openFormModal();
     },
+
 
     openFormModal() {
       const formModal = document.querySelector('#form-modal');
@@ -272,14 +286,17 @@ export default {
       list.remove("is-active");
     },
     closeForm() {
-      var chkBox = document.getElementById('formCheckbox');
-      chkBox.checked = false;
+      if (this.buttonTrigger != "ripPet") {
+        var chkBox = document.getElementById('formCheckbox');
+        chkBox.checked = false;
       
-      const timeInput = document.querySelector("#form-timeBirth");
-      timeInput.removeAttribute("readonly", "");
+        const timeInput = document.querySelector("#form-timeBirth");
+        timeInput.removeAttribute("readonly", "");
       
-      this.activePet = {};
-      this.editPet = {};
+        this.selectedPet = {};
+      }
+      
+      this.viewPet = {};
       this.buttonTrigger = "";
       this.formTitle = "";
       this.closeFormModal();
@@ -295,7 +312,7 @@ export default {
           minute: "2-digit",
         };             
         const currentTime = new Date(dateTime).toLocaleString("en-GB", options);
-        this.editPet.timeBirth = currentTime;
+        this.viewPet.timeBirth = currentTime;
 
         timeInput.setAttribute("readonly", "");
       }
@@ -303,25 +320,40 @@ export default {
         timeInput.removeAttribute("readonly", "");
       }
     },
+    submitForm() {
+      if (this.buttonTrigger === "addPet") {
+				this.addPet();
+			}
+			else if (this.buttonTrigger === "editPet") 
+			{
+				this.updatePet();
+			}
+      else // this.buttonTrigger === "ripPet"
+      {
+        this.deactivatePet();
+      }
+    },
 
-    mapActivePet(pet) {
-      this.activePet.petId = pet.petId;
-      this.activePet.petName = pet.petName;
-      this.activePet.petType = pet.petType;
-      this.activePet.brand = pet.brand;
-      this.activePet.dateBirth = this.formattedDateBirth(pet);
-      this.activePet.timeBirth = this.formattedTimeBirth(pet);
-      this.activePet.dateDeath = pet.dateDeath;
+
+    mapSelectedPet(pet) {
+      this.selectedPet.petId = pet.petId;
+      this.selectedPet.petName = pet.petName;
+      this.selectedPet.petType = pet.petType;
+      this.selectedPet.brand = pet.brand;
+      this.selectedPet.dateBirth = this.formattedDateBirth(pet);
+      this.selectedPet.timeBirth = this.formattedTimeBirth(pet);
+      this.selectedPet.dateDeath = pet.dateDeath;
     },
-    mapEditPet(pet) {
-      this.editPet.petId = pet.petId;
-      this.editPet.petName = pet.petName;
-      this.editPet.petType = pet.petType;
-      this.editPet.brand = pet.brand;
-      this.editPet.dateBirth = pet.dateBirth;
-      this.editPet.timeBirth = pet.timeBirth;
-      this.editPet.dateDeath = pet.dateDeath;
+    mapViewPet(pet) {
+      this.viewPet.petId = pet.petId;
+      this.viewPet.petName = pet.petName;
+      this.viewPet.petType = pet.petType;
+      this.viewPet.brand = pet.brand;
+      this.viewPet.dateBirth = pet.dateBirth;
+      this.viewPet.timeBirth = pet.timeBirth;
+      this.viewPet.dateDeath = pet.dateDeath;
     },
+
 
     formattedBirthday(pet) {     
       const dateTime = pet.birthday;

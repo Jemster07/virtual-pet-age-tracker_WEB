@@ -41,7 +41,7 @@
                       <td>{{ pet.brand }}</td>
                       <td>{{ pet.petType }}</td>
                       <td>{{ formattedBirthday(pet) }}</td>
-                      <td>{{ pet.dateDeath }}</td>
+                      <td>{{ formattedDateDeath(pet) }}</td>
                       <td>{{ pet.age }}</td>
                       <td>
                         <div class="buttons are-small is-pulled-right">
@@ -400,6 +400,19 @@ export default {
         timeStyle: 'short',
       };     
       return new Date(dateTime).toLocaleString(undefined, options);
+    },
+    formattedDateDeath(pet) {
+      if (pet.dateDeath == null || pet.dateDeath == "") {
+        return "";
+      } else {
+        const dateTime = pet.dateDeath;
+        const options = {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        };     
+        return new Date(dateTime).toLocaleString(undefined, options);
+      }      
     },
   },
 };

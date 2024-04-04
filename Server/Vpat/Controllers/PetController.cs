@@ -143,13 +143,13 @@ namespace Vpat.Controllers
 			DateOnly date = DateOnly.Parse(viewPet.DateBirth);
             TimeOnly time = TimeOnly.Parse(viewPet.TimeBirth);
             string dateTimeString = $"{date} {time}";
-            DateTime editPetBirthday = DateTime.Parse(dateTimeString);
+            DateTime viewPetBirthday = DateTime.Parse(dateTimeString);
 
-			DateTime? editPetDeath = null;
+			DateTime? viewPetDeath = null;
 
 			if (viewPet.DateDeath != "" && viewPet.DateDeath != null)
 			{
-				editPetDeath = DateTime.Parse(viewPet.DateDeath);
+				viewPetDeath = DateTime.Parse(viewPet.DateDeath);
 			}
 			
 			Pet pet = new Pet
@@ -158,8 +158,8 @@ namespace Vpat.Controllers
 				PetName = viewPet.PetName,
 				PetType = viewPet.PetType,
 				Brand = viewPet.Brand,
-				Birthday = editPetBirthday,
-				DateDeath = editPetDeath,
+				Birthday = viewPetBirthday,
+				DateDeath = viewPetDeath,
 				IsHidden = viewPet.IsHidden,
 				UserId = viewPet.UserId
 			};

@@ -44,8 +44,8 @@
                       <td>{{ pet.dateDeath }}</td>
                       <td>{{ pet.age }}</td>
                       <td>
-                        <div class="buttons are-small">
-                          <button class="button is-info" v-on:click="editClicked(pet)">Edit</button>
+                        <div class="buttons are-small is-pulled-right">
+                          <button class="button is-info" v-if="pet.dateDeath == null" v-on:click="editClicked(pet)">Edit</button>
                           <button class="button is-info" v-if="pet.dateDeath == null" v-on:click="ripClicked(pet)">R.I.P</button>
                           <button class="button is-danger is-light">Delete</button>
                         </div>
@@ -84,6 +84,7 @@
           <label class="label is-size-4 has-text-centered">{{ formTitle }}</label>
 
           <form v-on:submit.prevent="submitForm">
+
             <div v-if="buttonTrigger != 'ripPet'">
               <div class="field">
                 <label class="label">Name</label>
@@ -107,7 +108,7 @@
                 <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ selectedPet.petType }}</p>    
               </div>
               <div class="field">
-                <label class="label">Day of Birth</label>
+                <label class="label">Date of Birth</label>
                 <div class="control">
                   <input class="input" type="date" v-model="viewPet.dateBirth" required>
                 </div>
@@ -125,6 +126,18 @@
                 </label>    
               </div>
             </div>
+
+            <div v-if="buttonTrigger == 'ripPet'">
+              <div class="field">
+                <label class="label">Date of Death</label>
+                <div class="control">
+                  <input class="input" type="date" v-model="viewPet.dateDeath" required>
+                </div>
+              </div>
+              <p class="help">WARNING: This action is permanent and can only be reversed by contacting support!</p>
+              <br>
+            </div>
+
             <div class="field is-grouped is-grouped-right">
               <p class="control">
                 <button type="submit" class="button is-info">Submit</button>
@@ -132,7 +145,8 @@
               <p class="control">
                 <a class="button is-light" v-on:click="closeForm()">Cancel</a>
               </p>
-            </div>    
+            </div> 
+
           </form>
 
         </div>
@@ -199,7 +213,11 @@ export default {
     async updatePet() {
       await PetService.updatePet(this.viewPet).then(response => {
         if (response) {
-          this.alertMessage = `${this.viewPet.petName} successfully updated.`;
+          if (this.buttonTrigger == "ripPet") {
+            this.alertMessage = `Rest in peace, ${this.viewPet.petName}!`;
+          } else {
+            this.alertMessage = `${this.viewPet.petName} successfully updated.`;
+          }         
           this.closeForm();
           this.listPets();
           this.openAlert();
@@ -215,7 +233,7 @@ export default {
     async addPet() {
       await PetService.addPet(this.viewPet).then(response => {
         if (response) {
-          this.alertMessage = `${this.viewPet.petName} successfully added`;
+          this.alertMessage = `${this.viewPet.petName} successfully added.`;
           this.closeForm();
           this.listPets();
           this.openAlert();
@@ -231,9 +249,13 @@ export default {
     async deactivatePet() {
       await PetService.deactivatePet(this.viewPet).then(response => {
         if (response) {
-          this.alertMessage = `Rest in peace, ${this.viewPet.petName}!`;
+          this.alertMessage = `${this.viewPet.petName} successfully removed.`;
+          this.closeForm();
+          this.listPets();
+          this.openAlert();
         } else {
-          this.alertMessage = `There was an error recording ${this.selectedPet.petName}'s death.`;
+          this.alertMessage = `There was an error removing ${this.viewPet.petName}.`;
+          this.openAlert();
         }
       })
       .catch(error => {
@@ -270,6 +292,7 @@ export default {
     ripClicked(pet) {
       this.buttonTrigger = "ripPet";
       this.formTitle = `Record ${pet.petName}'s Death`;
+      this.mapSelectedPet(pet);
       this.mapViewPet(pet);
       this.openFormModal();
     },
@@ -291,11 +314,10 @@ export default {
         chkBox.checked = false;
       
         const timeInput = document.querySelector("#form-timeBirth");
-        timeInput.removeAttribute("readonly", "");
-      
-        this.selectedPet = {};
+        timeInput.removeAttribute("readonly", "");     
       }
       
+      this.selectedPet = {};
       this.viewPet = {};
       this.buttonTrigger = "";
       this.formTitle = "";
@@ -330,7 +352,9 @@ export default {
 			}
       else // this.buttonTrigger === "ripPet"
       {
-        this.deactivatePet();
+        this.viewPet.dateBirth = this.selectedPet.dateBirth;
+        this.viewPet.timeBirth = this.selectedPet.timeBirth;
+        this.updatePet();
       }
     },
 

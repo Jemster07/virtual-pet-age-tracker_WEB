@@ -15,7 +15,7 @@
             </div>
             <div class="column is-narrow">
               <div class="container">
-                <button class="button is-success is-pulled-right" v-on:click="openNewModal()">Add New Pet</button>
+                <button class="button is-success is-pulled-right" v-on:click="addClicked()">Add New Pet</button>
               </div>
             </div>
           </div>
@@ -77,106 +77,50 @@
       <button class="modal-close is-large" aria-label="close" v-on:click="closeAlert()"></button>
     </div>
 
-    <div id="new-modal" class="modal is-clipped">
+    <div id="form-modal" class="modal is-clipped">
       <div class="modal-background"></div>
       <div class="modal-content">
         <div class="box">
-          <label class="label is-size-4 has-text-centered">Add a New Pet</label>
+          <label class="label is-size-4 has-text-centered">{{ formTitle }}</label>
 
-          <form v-on:submit.prevent="addPet">
-              <div class="field">
-                  <label class="label">Name</label>
-                    <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="newPet.petName" required>
-                    </div> 
-              </div>
-              <div class="field">
-                  <label class="label">Brand/Species</label>
-                    <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="newPet.brand" required>
-                    </div>
-              </div>
-              <div class="field">
-                  <label class="label">Type</label>
-                    <div class="control">
-                      <input class="input" type="text" maxLength="50" v-model="newPet.petType" required>
-                    </div>
-              </div>
-              <div class="field">
-                  <label class="label">Day of Birth</label>
-                    <div class="control">
-                      <input class="input" type="date" v-model="newPet.dateBirth" required>
-                    </div>
-              </div>
-              <div class="field">
-                  <label class="label">Time of Birth</label>
-                    <div class="control">
-                      <input class="input" type="time" id="new-timeBirth" v-model="newPet.timeBirth" required>                     
-                    </div>
-                    <br>
-                    <label class="checkbox">
-                      <input type="checkbox" id="newCheckbox" name="newCheckboxClicked" v-on:change="newCheckboxClicked()"> Use current time 
-                    </label>    
-              </div>
-              <div class="field is-grouped is-grouped-right">
-                  <p class="control">
-                    <button type="submit" class="button is-info">Submit</button>
-                  </p>
-                  <p class="control">
-                    <a class="button is-light" v-on:click="closeNewForm()">Cancel</a>
-                  </p>
-              </div>    
-          </form>
-
-        </div>
-      </div>
-      <button class="modal-close is-large" aria-label="close" v-on:click="closeNewForm()"></button>
-    </div>
-
-    <div id="edit-modal" class="modal is-clipped">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class="box">
-          <label class="label is-size-4 has-text-centered">Edit {{ activePet.petName }}</label>
-
-          <form v-on:submit.prevent="updatePet">
+          <form v-on:submit.prevent="submitForm">
               <div class="field">
                   <label class="label">Name</label>
                       <div class="control">
                       <input class="input" type="text" maxLength="50" v-model="editPet.petName" required>
                       </div> 
-                      <p class="help">Previous Value: {{ activePet.petName }}</p>    
+                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.petName }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Brand/Species</label>
                       <div class="control">
                       <input class="input" type="text" maxLength="50" v-model="editPet.brand" required>
                       </div>
-                      <p class="help">Previous Value: {{ activePet.brand }}</p>    
+                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.brand }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Type</label>
                       <div class="control">
                       <input class="input" type="text" maxLength="50" v-model="editPet.petType" required>
                       </div>
-                      <p class="help">Previous Value: {{ activePet.petType }}</p>    
+                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.petType }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Day of Birth</label>
                       <div class="control">
                       <input class="input" type="date" v-model="editPet.dateBirth" required>
                       </div>
-                      <p class="help">Previous Value: {{ activePet.dateBirth }}</p>    
+                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.dateBirth }}</p>    
                   </div>
                   <div class="field">
                   <label class="label">Time of Birth</label>
                       <div class="control">
-                      <input class="input" type="time" id="edit-timeBirth" v-model="editPet.timeBirth" required>                     
+                      <input class="input" type="time" id="form-timeBirth" v-model="editPet.timeBirth" required>                     
                       </div>
-                      <p class="help">Previous Value: {{ activePet.timeBirth }}</p>
+                      <p class="help" v-if="buttonTrigger == 'editPet'">Previous Value: {{ activePet.timeBirth }}</p>
                       <br>
                       <label class="checkbox">
-                        <input type="checkbox" id="editCheckbox" name="editCheckboxClicked" v-on:change="editCheckboxClicked()"> Use current time 
+                        <input type="checkbox" id="formCheckbox" name="formCheckboxClicked" v-on:change="formCheckboxClicked()"> Use current time 
                       </label>    
                   </div>
                   <div class="field is-grouped is-grouped-right">
@@ -184,14 +128,14 @@
                       <button type="submit" class="button is-info">Submit</button>
                   </p>
                   <p class="control">
-                      <a class="button is-light" v-on:click="closeEditForm()">Cancel</a>
+                      <a class="button is-light" v-on:click="closeForm()">Cancel</a>
                   </p>
               </div>    
           </form>
 
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" v-on:click="closeEditForm()"></button>
+      <button class="modal-close is-large" aria-label="close" v-on:click="closeForm()"></button>
     </div>
   </div>
 </template>
@@ -205,15 +149,9 @@ export default {
       currentUserId: this.$store.state.user.userId,
       petList: [],
       alertMessage: "",
-      
-      newPet: {
-        petName: "",
-        petType: "",
-        brand: "",
-        dateBirth: "",
-        timeBirth: "",
-        userId: this.$store.state.user.userId,
-      },
+      buttonTrigger: "",
+      formTitle: "",
+
       editPet: {
         petId: 0,
         petName: "",
@@ -260,7 +198,7 @@ export default {
       await PetService.updatePet(this.editPet).then(response => {
         if (response) {
           this.alertMessage = `${this.editPet.petName} successfully updated.`;
-          this.closeEditForm();
+          this.closeForm();
           this.listPets();
           this.openAlert();
         } else {
@@ -273,14 +211,14 @@ export default {
       })
     },
     async addPet() {
-      await PetService.addPet(this.newPet).then(response => {
+      await PetService.addPet(this.editPet).then(response => {
         if (response) {
-          this.alertMessage = `${this.newPet.petName} successfully added`;
-          this.closeNewForm();
+          this.alertMessage = `${this.editPet.petName} successfully added`;
+          this.closeForm();
           this.listPets();
           this.openAlert();
         } else {
-          this.alertMessage = `There was an error adding ${this.newPet.petName}.`;
+          this.alertMessage = `There was an error adding ${this.editPet.petName}.`;
           this.openAlert();
         }
       })
@@ -301,75 +239,54 @@ export default {
       this.alertMessage = "";
     },
 
-    openNewModal() {
-      const newModal = document.querySelector('#new-modal');
-      const list = newModal.classList;
-      list.add("is-active");
+    addClicked() {
+      this.buttonTrigger = "addPet";
+      this.formTitle = "Add a New Pet";
+      this.openFormModal();
     },
-    closeNewModal() {
-      const newModal = document.querySelector('#new-modal');
-      const list = newModal.classList;
-      list.remove("is-active");
-    },
-    closeNewForm() {
-      var chkBox = document.getElementById('newCheckbox');
-      chkBox.checked = false;
-      
-      const timeInput = document.querySelector("#new-timeBirth");
-      timeInput.removeAttribute("readonly", "");
-      
-      this.newPet = {};
-      this.closeNewModal();
-    },
-    newCheckboxClicked() {
-      var chkBox = document.getElementById('newCheckbox');
-      const timeInput = document.querySelector("#new-timeBirth");
-
-      if (chkBox.checked) {        
-        const dateTime = Date.now();
-        const options = {
-          hour: "2-digit",
-          minute: "2-digit",
-        };             
-        const currentTime = new Date(dateTime).toLocaleString("en-GB", options);
-        this.newPet.timeBirth = currentTime;
-
-        timeInput.setAttribute("readonly", "");
-      }
-      else {
-        timeInput.removeAttribute("readonly", "");
-      }
-    },
-
     editClicked(pet) {
+      this.buttonTrigger = "editPet";
+      this.formTitle = "Edit " + pet.name;
       this.mapActivePet(pet);
       this.mapEditPet(pet);
-      this.openEditModal();
+      this.openFormModal();
     },
-    openEditModal() {
-      const editModal = document.querySelector('#edit-modal');
-      const list = editModal.classList;
+    submitForm() {
+      if (this.buttonTrigger === "addPet") {
+				this.addPet();
+			}
+			else // this.buttonTrigger === "editPet"
+			{
+				this.updatePet();
+			}
+    },
+
+    openFormModal() {
+      const formModal = document.querySelector('#form-modal');
+      const list = formModal.classList;
       list.add("is-active");
     },
-    closeEditModal() {
-      const editModal = document.querySelector('#edit-modal');
-      const list = editModal.classList;
+    closeFormModal() {
+      const formModal = document.querySelector('#form-modal');
+      const list = formModal.classList;
       list.remove("is-active");
     },
-    closeEditForm() {
-      var chkBox = document.getElementById('editCheckbox');
+    closeForm() {
+      var chkBox = document.getElementById('formCheckbox');
       chkBox.checked = false;
       
-      const timeInput = document.querySelector("#edit-timeBirth");
+      const timeInput = document.querySelector("#form-timeBirth");
       timeInput.removeAttribute("readonly", "");
       
       this.activePet = {};
       this.editPet = {};
-      this.closeEditModal();
+      this.buttonTrigger = "";
+      this.formTitle = "";
+      this.closeFormModal();
     },
-    editCheckboxClicked() {
-      var chkBox = document.getElementById('editCheckbox');
-      const timeInput = document.querySelector("#edit-timeBirth");
+    formCheckboxClicked() {
+      var chkBox = document.getElementById('formCheckbox');
+      const timeInput = document.querySelector("#form-timeBirth");
 
       if (chkBox.checked) {        
         const dateTime = Date.now();

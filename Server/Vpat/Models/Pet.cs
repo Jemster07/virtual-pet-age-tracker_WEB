@@ -43,7 +43,7 @@ namespace Vpat.Models
         }
     }
 
-    public class EditPet
+    public class ViewPet
     {
         public int PetId { get; set; }
         public string PetName { get; set; }
@@ -53,16 +53,6 @@ namespace Vpat.Models
         public string TimeBirth { get; set; }
         public string DateDeath { get; set; }
         public bool IsHidden { get; set; }
-        public int UserId { get; set; }
-    }
-
-    public class NewPet
-    {
-        public string PetName { get; set; }
-        public string PetType { get; set; }
-        public string Brand { get; set; }
-        public string DateBirth { get; set; }
-        public string TimeBirth { get; set; }
         public int UserId { get; set; }
     }
 }

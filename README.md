@@ -4,6 +4,8 @@
 
 - Add an R.I.P form that opens in a modal to input the dateDeath property
 - Enable the deletion of individual pets by user
+- Pass exceptions to front end as error messages
+    - Custom message for new pet error where userID is not defined, ask user to log out and log back in again to retry 
 - Create an admin page that fetches a list of hidden users and pets from the database
 - Give admins the ability to make a Delete HTTP request to permanently remove hidden users and hidden pets from the database
 - Create a support page that allows users to fill out a form that emails an admin account without exposing the contact address

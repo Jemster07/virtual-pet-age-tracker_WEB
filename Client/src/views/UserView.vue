@@ -56,9 +56,16 @@
               </div>
             </div>
           </div>
-
         </div>
-      </div>     
+      </div>  
+      
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="container">
+            <p class="help">Pet age is calculated by counting the number of days that have passed since pet birth. Due to differences in month duration year over year, the representation of age is an estimate and may produce slight inconsistencies. Always compare the pet's age to their birthday for the most accurate result.</p>
+          </div>
+        </div>
+      </div>
 
     <div id="alert-modal" class="modal">
       <div class="modal-background"></div>
@@ -315,8 +322,7 @@ export default {
       
         const timeInput = document.querySelector("#form-timeBirth");
         timeInput.removeAttribute("readonly", "");     
-      }
-      
+      }   
       this.selectedPet = {};
       this.viewPet = {};
       this.buttonTrigger = "";

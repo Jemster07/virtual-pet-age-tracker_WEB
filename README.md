@@ -26,7 +26,7 @@ Visual Studio for Windows users can run the server application using SQL Express
 Each time you run the server-side application, a new tab in your default browser will open and list the app's endpoints in Swagger. Keep this window open to keep the server running.
 
 ### Client
-In your IDE, open a terminal window and navigate to the Client folder in the project directory. Run this command: `npm run dev` and `CTRL + LMB` on the Localhost URL that is provided by the terminal. This will launch the client application as a new tab in your default browser.
+This project requires Node, which can be downloaded [here.](https://nodejs.org/en/) Make sure you have it installed before continuing. In your IDE, open a terminal window and navigate to the Client folder in the project directory. Run this command: `npm run dev` and `CTRL + LMB` on the Localhost URL that is provided by the terminal. This will launch the client application as a new tab in your default browser.
 
 ## Using the App:
 Launching the app will take you to a home page with a navigation menu at the top of the screen. This menu is present on all pages. From here you can create an account, login or logout, contact support, and access your user page. If the user is an administrator, they also have access to the Admin Page.

@@ -11,7 +11,7 @@ This application is designed to help log and keep track of your pets' ages. Inpu
 
 Because the app follows the traditional passage of time (days = days, years = years), it can be used to keep track of non-virtual pets as well. Some sample pets have been included to demonstrate this feature and can be removed if so desired.
 
-## Initial Setup for Pre-Release Version
+## Initial Setup for the Pre-Release Version
 
 ### Database
 The database for this project was designed in Azure Data Studio, connecting to a Microsoft Sql Server image running in a Docker container. This works for MacOS users like myself, but if you have a Windows PC, you can initialize the included database build script in Microsoft Sql Server Management Studio natively, without creating a container. The database build script is located in the following directory: **_virtual-pet-age-tracker_WEB > Server > database_**
@@ -29,22 +29,10 @@ Each time you run the server-side application, a new tab in your default browser
 In your IDE, open a terminal window and navigate to the Client folder in the project directory. Run this command: `npm run dev` and `CTRL + LMB` on the Localhost URL that is provided by the terminal. This will launch the client application as a new tab in your default browser.
 
 ## Using the App:
-The application has three core functions: _List current pets, add a pet,_ and _remove a pet._ Navigation through the prompts and menus is done with the keyboard.
+Launching the app will take you to a home page with a navigation menu at the top of the screen. This menu is present on all pages. From here you can create an account, login or logout, contact support, and access your user page. If the user is an administrator, they also have access to the Admin Page.
 
-### Current Pets
-Selecting this menu generates a list of all pets saved in the application. Pet ages are calculated at this stage to ensure that they are always accurate.
-
-### Add Pet
-This menu will guide you through the process of adding a new pet to the application. You will need to know your pet's name, type, and date/time of birth. Pet type can represent whatever you'd like - brand, species, color, breed, etc. If the pet's birthday is the same day that it is being added to the tracker, you can indicate as such to save yourself some typing :)
-
-### Remove Pet
-Verify the name of the pet you wish to delete by visiting the __Current Pets__ menu first - you will need to know the exact name you entered when you previously added the pet! After navigating to the __Remove Pet__ menu, you will be prompted to type in the name of the pet you wish to delete. Do so and confirm that you want to delete the pet.
-
-Pet deletion is __PERMENANT__ and cannot be undone!
-
-### Exit
-
-Select this menu option to exit the application.
+### User Page
+At this time, the main functionality of the user page is to manage the current user's pets. The app will display pertinent information about each pet, as well as provide options to modify or delete each entry. New entries can be created with the _Add New Pet_ button. Adding a date of pet death by clicking the _R.I.P_ button will cause the age counter to stop increasing for that pet, saving its age as what it was at its time of passing.
 
 ## Technologies Used:
 - C#/.NET
@@ -65,6 +53,7 @@ Select this menu option to exit the application.
 - Create an admin page that fetches a list of hidden users and pets from the database
 - Give admins the ability to make a Delete HTTP request to permanently remove hidden users and hidden pets from the database
 - Create a support page that allows users to fill out a form that emails an admin account without exposing the contact address
+- Host in Azure Cloud
 
 ### ~~Done:~~
 
